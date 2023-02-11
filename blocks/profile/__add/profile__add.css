@@ -1,0 +1,8 @@
+.profile__add {
+    height: 50px;
+    width: 100%;
+    border: 2px solid #FFFFFF;
+    border-radius: 2px;
+    background: url("./../../../images/plus.svg") no-repeat center center;
+    background-size: 16px;
+}

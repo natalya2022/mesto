@@ -15,3 +15,15 @@
 Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
 
 Удачи!
+
+@media screen and (min-width: 768px) {
+  .header {
+    padding: 28px 24px 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .header {
+    padding: 28px 48px 0;
+  }
+}

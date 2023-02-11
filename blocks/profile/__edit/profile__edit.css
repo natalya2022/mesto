@@ -1,0 +1,10 @@
+.profile__edit {
+    position: absolute;
+    top: 8px;
+    right: -28px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #FFFFFF;
+    background: url("./../../../images/pencil.svg") no-repeat center center;
+    background-size: 7.5px;
+}
