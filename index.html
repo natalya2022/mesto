@@ -15,21 +15,69 @@
       <main class="content">
         <section class="profile">
           <form class="profile__fill">
-            <div class="profile__layout">
-              <img src="./images/kusto.png" alt="Фото профиля" class="profile__avatar">
-              <div class="profile__info">
-                <h1 class="profile__title">Жак-Ив Кусто<button class="profile__edit"></button></h1>
-                <p class="profile__occupation">Исследователь океана</p>              
+            <img src="./images/kusto.png" alt="Фото профиля" class="profile__avatar">
+            <div class="profile__info">
+              <div class="profile__name">                
+                <h1 class="profile__title">Жак-Ив Кусто</h1>
+                <button class="profile__edit"></button>
               </div>
-            </div>  
+              <p class="profile__occupation">Исследователь океана</p>              
+            </div>            
             <button class="profile__add"></button>
           </form>
-
         </section>
-      
+        <section class="photo-grid" aria-label="Фотогалерея">
+          <ul class="photo-grid__places">
+            <li class="photo-grid__place">
+              <img src="./images/kirill-pershin-1088404-unsplash.png" alt="Пейзаж" class="photo-grid__picture">
+              <div class="photo-grid__rectangle">
+                <h2 class="photo-grid__title">Карачаевск</h2>
+                <img src="./images/like_white.svg" alt="В избранное" class="photo-grid__like">
+              </div>
+            </li>
+            <li class="photo-grid__place">
+              <img src="./images/kirill-pershin-1088404-unsplash.png" alt="Пейзаж" class="photo-grid__picture">
+              <div class="photo-grid__rectangle">
+                <h2 class="photo-grid__title">Карачаевск</h2>
+                <img src="./images/like_white.svg" alt="В избранное" class="photo-grid__like">
+              </div>
+            </li>
+            <li class="photo-grid__place">
+              <img src="./images/kirill-pershin-1088404-unsplash.png" alt="Пейзаж" class="photo-grid__picture">
+              <div class="photo-grid__rectangle">
+                <h2 class="photo-grid__title">Карачаевск</h2>
+                <img src="./images/like_white.svg" alt="В избранное" class="photo-grid__like">
+              </div>
+            </li>
+            <li class="photo-grid__place">
+              <img src="./images/kirill-pershin-1088404-unsplash.png" alt="Пейзаж" class="photo-grid__picture">
+              <div class="photo-grid__rectangle">
+                <h2 class="photo-grid__title">Карачаевск</h2>
+                <img src="./images/like_white.svg" alt="В избранное" class="photo-grid__like">
+              </div>
+            </li>
+            <li class="photo-grid__place">
+              <img src="./images/kirill-pershin-1088404-unsplash.png" alt="Пейзаж" class="photo-grid__picture">
+              <div class="photo-grid__rectangle">
+                <h2 class="photo-grid__title">Карачаевск</h2>
+                <img src="./images/like_white.svg" alt="В избранное" class="photo-grid__like">
+              </div>
+            </li>
+            <li class="photo-grid__place">
+              <img src="./images/kirill-pershin-1088404-unsplash.png" alt="Пейзаж" class="photo-grid__picture">
+              <div class="photo-grid__rectangle">
+                <h2 class="photo-grid__title">Карачаевск</h2>
+                <img src="./images/like_white.svg" alt="В избранное" class="photo-grid__like">
+              </div>
+            </li>
+          </ul>        
+        </section>      
       </main>
-      <footer class="footer"></footer>
+      <footer class="footer">
+        <p class="footer__copyright">© 2023 Mesto Russia</p>
+      </footer>
     </div>
+    <div class="container">
     <script src="./scripts/index.js"></script>
   </body>
 </html>

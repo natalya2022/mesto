@@ -2,5 +2,14 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    row-gap: 33px;
+    row-gap: 25px;
+}
+
+@media screen and (min-width: 619px) {
+    .profile__fill {
+        max-width: 880px;
+        flex-direction: row;
+        align-items: center;
+        column-gap: 30px;
+    }
 }

@@ -1,0 +1,6 @@
+.photo-grid__picture {
+    width: 100%;
+    background: white;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
