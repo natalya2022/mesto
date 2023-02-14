@@ -32,7 +32,7 @@ formProfile.addEventListener('submit', saveProfile);
 function saveProfile (evt) {
     evt.preventDefault();
     
-    if(inputName.value != ''  && inputJob.value != '') {
+    if (inputName.value.length > 1 && inputJob.value.length > 1) {
         profileName.textContent = inputName.value;
         profileJob.textContent =  inputJob.value;
     }
