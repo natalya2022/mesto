@@ -4,6 +4,12 @@
     border: 1px solid #FFFFFF;
     background: url("./../../../images/pencil.svg") no-repeat center center;
     background-size: 7.5px;
+    transition: opacity 0.5s;
+}
+
+.profile__edit:hover {
+    opacity: .6;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 880px) {
