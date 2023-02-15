@@ -14,17 +14,17 @@
       </header>
       <main class="content">
         <section class="profile">
-          <form class="profile__fill">
+          <div class="profile__fill">
             <img src="./images/senkevich.jpg" alt="Фото профиля" class="profile__avatar">
             <div class="profile__info">
               <div class="profile__name">                
                 <h1 class="profile__title">Юрий Сенкевич</h1>
-                <button class="profile__edit"></button>
+                <button class="profile__edit" type="button" aria-label="Редактировать"></button>
               </div>
               <p class="profile__occupation">Русский путешественник</p>              
             </div>            
-            <button class="profile__add"></button>
-          </form>
+            <button class="profile__add" type="button" aria-label="Добавить"></button>
+          </div>
         </section>
         <section class="photo-grid" aria-label="Фотогалерея">
           <ul class="photo-grid__places">
@@ -32,42 +32,42 @@
               <img src="./images/baikal.jpg" alt="Пейзаж" class="photo-grid__picture">
               <div class="photo-grid__rectangle">
                 <h2 class="photo-grid__title">Озеро Байкал</h2>
-                <button class="photo-grid__like"></button>
+                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
               </div>
             </li>
             <li class="photo-grid__place">
               <img src="./images/north_pole.jpg" alt="Пейзаж" class="photo-grid__picture">
               <div class="photo-grid__rectangle">
                 <h2 class="photo-grid__title">Северный полюс</h2>
-                <button class="photo-grid__like"></button>
+                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
               </div>
             </li>
             <li class="photo-grid__place">
               <img src="./images/icebreaker.jpg" alt="Пейзаж" class="photo-grid__picture">
               <div class="photo-grid__rectangle">
                 <h2 class="photo-grid__title">Ледокол "50 лет Победы"</h2>
-                <button class="photo-grid__like"></button>
+                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
               </div>
             </li>
             <li class="photo-grid__place">
               <img src="./images/antarctica.jpg" alt="Пейзаж" class="photo-grid__picture">
               <div class="photo-grid__rectangle">
                 <h2 class="photo-grid__title">Антарктида</h2>
-                <button class="photo-grid__like"></button>
+                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
               </div>
             </li>
             <li class="photo-grid__place">
               <img src="./images/east_station.jfif" alt="Пейзаж" class="photo-grid__picture">
               <div class="photo-grid__rectangle">
                 <h2 class="photo-grid__title">Станция "Восток"</h2>
-                <button class="photo-grid__like"></button>
+                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
               </div>
             </li>
             <li class="photo-grid__place">
               <img src="./images/elbrus.jpg" alt="Пейзаж" class="photo-grid__picture">
               <div class="photo-grid__rectangle">
                 <h2 class="photo-grid__title">Эльбрус</h2>
-                <button class="photo-grid__like"></button>
+                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
               </div>
             </li>
           </ul>        
@@ -77,19 +77,16 @@
         <p class="footer__copyright">© 2023 Mesto Russia</p>
       </footer>
     </div>
-    <div class="popup">
-      <div class="popup__fade"></div>
-      <div class="popup__wrapper">
-        <form class="popup__container">
-          <h3 class="popup__title">Редактировать профиль</h3>
-          <div class="popup__fill">
-            <input class="popup__name" type="text" placeholder="Имя">
-            <input class="popup__occupation" type="text" placeholder="Занятие">
-          </div>
-          <button class="popup__save">Сохранить</button>
-          <button class="popup__close"></button>
-        </form>
-      </div>
+    <div class="popup">      
+      <form class="popup__container" name="form-edit">
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <div class="popup__fill">
+          <input class="popup__text popup__text_field_name" type="text" placeholder="Имя" name="form-name">
+          <input class="popup__text popup__text_field_occupation" type="text" placeholder="Занятие" name="form-job">
+        </div>
+        <button class="popup__save" type="submit">Сохранить</button>
+        <button class="popup__close" type="button" aria-label="Закрыть"></button>
+      </form>     
     </div>
     <script src="./scripts/index.js"></script>
   </body>
