@@ -5,7 +5,7 @@ const inputName = document.querySelector('.popup__text_field_name');
 const inputJob = document.querySelector('.popup__text_field_occupation');
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__occupation');
-const formProfile = document.querySelector('.popup__container');
+const formProfile = document.querySelector('.popup__edit');
 
 editProfileOpenButton.addEventListener('click', editProfile);
 
