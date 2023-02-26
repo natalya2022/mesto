@@ -1,0 +1,10 @@
+.popup__text_position_second-line {
+    height: 35px;
+    margin-top: 22px;
+}
+
+@media screen and (min-width: 619px) {
+    .popup__text_position_second-line {
+        margin-bottom: 24px;
+    }
+}

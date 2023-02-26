@@ -28,7 +28,7 @@
         </section>
         <section class="photo-grid" aria-label="Фотогалерея">
           <ul class="photo-grid__places">
-            <li class="photo-grid__place">
+            <!-- <li class="photo-grid__place">
               <img src="./images/baikal.jpg" alt="Пейзаж" class="photo-grid__picture">
               <div class="photo-grid__rectangle">
                 <h2 class="photo-grid__title">Озеро Байкал</h2>
@@ -69,7 +69,7 @@
                 <h2 class="photo-grid__title">Эльбрус</h2>
                 <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
               </div>
-            </li>
+            </li> -->
           </ul>        
         </section>      
       </main>
@@ -77,19 +77,43 @@
         <p class="footer__copyright">© 2023 Mesto Russia</p>
       </footer>
     </div>
-    <div class="popup">      
+    <div class="popup popup__profile">      
       <div class="popup__container">
         <h3 class="popup__title">Редактировать профиль</h3>
         <button class="popup__close" type="button" aria-label="Закрыть"></button>
         <form class="popup__edit" name="form-edit"> 
           <div class="popup__fill">
-            <input class="popup__text popup__text_field_name" type="text" placeholder="Имя" name="form-name">
-            <input class="popup__text popup__text_field_occupation" type="text" placeholder="Занятие" name="form-job">
+            <input class="popup__text popup__text_position_first-line popup__text_field_name" type="text" placeholder="Имя" name="form-name">
+            <input class="popup__text popup__text_position_second-line popup__text_field_occupation" type="text" placeholder="Занятие" name="form-job">
           </div>
           <button class="popup__save" type="submit">Сохранить</button>
         </form>
       </div>     
     </div>
-    <script src="./scripts/index.js"></script>
+    <div class="popup popup__place">      
+      <div class="popup__container">
+        <h3 class="popup__title">Новое место</h3>
+        <button class="popup__close" type="button" aria-label="Закрыть"></button>
+        <form class="popup__edit" name="form-add"> 
+          <div class="popup__fill">
+            <input class="popup__text popup__text_position_first-line popup__text_field_place" type="text" placeholder="Название" name="form-place">
+            <input class="popup__text popup__text_position_second-line popup__text_field_url" type="text" placeholder="Ссылка на картинку" name="form-url">
+          </div>
+          <button class="popup__save" type="submit">Сохранить</button>
+        </form>
+      </div>     
+    </div>
+    <template id="cardTemplate">
+      <ul class="photo-grid__places">
+        <li class="photo-grid__place">
+          <img src="./images/elbrus.jpg" alt="Пейзаж" class="photo-grid__picture">
+          <div class="photo-grid__rectangle">
+            <h2 class="photo-grid__title">Эльбрус</h2>
+            <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
+          </div>
+        </li>
+      </ul>
+    </template>  
+    <script src="./scripts/index.js" defer></script>
   </body>
 </html>

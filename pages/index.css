@@ -37,5 +37,9 @@
 @import url("../blocks/popup/__title/popup__title.css");
 @import url("../blocks/popup/__text/popup__text.css");
 @import url("../blocks/popup/__edit/popup__edit.css");
+@import url("../blocks/popup/__text/_position/popup__text_position_first-line.css");
+@import url("../blocks/popup/__text/_position/popup__text_position_second-line.css");
 @import url("../blocks/popup/__text/_field/popup__text_field_name.css");
 @import url("../blocks/popup/__text/_field/popup__text_field_occupation.css");
+@import url("../blocks/popup/__text/_field/popup__text_field_place.css");
+@import url("../blocks/popup/__text/_field/popup__text_field_url.css");
