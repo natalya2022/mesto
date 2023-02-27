@@ -27,49 +27,7 @@
           </div>
         </section>
         <section class="photo-grid" aria-label="Фотогалерея">
-          <ul class="photo-grid__places">
-            <!-- <li class="photo-grid__place">
-              <img src="./images/baikal.jpg" alt="Пейзаж" class="photo-grid__picture">
-              <div class="photo-grid__rectangle">
-                <h2 class="photo-grid__title">Озеро Байкал</h2>
-                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
-              </div>
-            </li>
-            <li class="photo-grid__place">
-              <img src="./images/north_pole.jpg" alt="Пейзаж" class="photo-grid__picture">
-              <div class="photo-grid__rectangle">
-                <h2 class="photo-grid__title">Северный полюс</h2>
-                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
-              </div>
-            </li>
-            <li class="photo-grid__place">
-              <img src="./images/icebreaker.jpg" alt="Пейзаж" class="photo-grid__picture">
-              <div class="photo-grid__rectangle">
-                <h2 class="photo-grid__title">Ледокол "50 лет Победы"</h2>
-                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
-              </div>
-            </li>
-            <li class="photo-grid__place">
-              <img src="./images/antarctica.jpg" alt="Пейзаж" class="photo-grid__picture">
-              <div class="photo-grid__rectangle">
-                <h2 class="photo-grid__title">Антарктида</h2>
-                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
-              </div>
-            </li>
-            <li class="photo-grid__place">
-              <img src="./images/east_station.jfif" alt="Пейзаж" class="photo-grid__picture">
-              <div class="photo-grid__rectangle">
-                <h2 class="photo-grid__title">Станция "Восток"</h2>
-                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
-              </div>
-            </li>
-            <li class="photo-grid__place">
-              <img src="./images/elbrus.jpg" alt="Пейзаж" class="photo-grid__picture">
-              <div class="photo-grid__rectangle">
-                <h2 class="photo-grid__title">Эльбрус</h2>
-                <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
-              </div>
-            </li> -->
+          <ul class="photo-grid__places">            
           </ul>        
         </section>      
       </main>
@@ -103,16 +61,22 @@
         </form>
       </div>     
     </div>
-    <template id="cardTemplate">
-      <ul class="photo-grid__places">
-        <li class="photo-grid__place">
-          <img src="./images/elbrus.jpg" alt="Пейзаж" class="photo-grid__picture">
-          <div class="photo-grid__rectangle">
-            <h2 class="photo-grid__title">Эльбрус</h2>
-            <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
-          </div>
-        </li>
-      </ul>
+    <div class="popup popup__image">      
+      <div class="popup__image-container">
+        <img src="#" alt="#" class="popup__photo">
+        <p class="popup__place-name"></p>
+        <button class="popup__close" type="button" aria-label="Закрыть"></button>        
+      </div>     
+    </div>
+    <template id="cardTemplate">      
+      <li class="photo-grid__place">
+        <img src="#" alt="#" class="photo-grid__picture">
+        <button class="photo-grid__delete" type="button" aria-label="Удалить изображение"></button>
+        <div class="photo-grid__rectangle">
+          <h2 class="photo-grid__title"></h2>
+          <button class="photo-grid__like" type="button" aria-label="Добавить в избранное"></button>
+        </div>
+      </li>      
     </template>  
     <script src="./scripts/index.js" defer></script>
   </body>
