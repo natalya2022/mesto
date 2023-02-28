@@ -18,7 +18,7 @@ function editProfile(evt) {
     inputJob.value = profileJob.textContent;
 };
 
-//функция закрытие попапа
+//функция закрытие попапа редактирования профиля
 
 function closePopup() {
     editPopup.classList.remove('popup_opened');
