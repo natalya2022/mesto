@@ -1,5 +1,5 @@
 const editProfileOpenButton = document.querySelector('.profile__edit');
-const editPopup = document.querySelector('.popup__profile');
+const editPopup = document.querySelector('.popup_type_profile');
 const closePopupAllButtons = document.querySelectorAll('.popup__close');
 const inputName = document.querySelector('.popup__text_field_name');
 const inputJob = document.querySelector('.popup__text_field_occupation');
@@ -104,7 +104,7 @@ initialCards.forEach((card) => {
 })
 
 const addNewCardButton = document.querySelector('.profile__add');
-const addCard = document.querySelector('.popup__place');
+const addCard = document.querySelector('.popup_type_place');
 const inputPlace = document.querySelector('.popup__text_field_place');
 const inputLink = document.querySelector('.popup__text_field_url');
 const formNewCard = document.forms['form-add'];
@@ -153,7 +153,7 @@ function deleteCard(event) {
     card.remove();
  } 
 
-const popupImage = document.querySelector('.popup__image');
+const popupImage = document.querySelector('.popup_type_image');
 
 //функция просмотра изображения
 
