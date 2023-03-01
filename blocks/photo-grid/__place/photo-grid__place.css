@@ -7,3 +7,9 @@
     background-color: white;
     position: relative;
 }
+
+@media screen and (min-width: 880px) {
+    .photo-grid__place {
+        max-width: 282px;
+    }
+}
