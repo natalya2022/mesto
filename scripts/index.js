@@ -119,6 +119,8 @@ function showPopup(evt) {
     openPopup(addCard);
     inputPlace.value = '';
     inputLink.value = '';
+    const buttonElement = formNewCard.querySelector(obj.submitButtonSelector);
+    buttonElement.classList.add(obj.inactiveButtonClass);
 }
 
 //функция добавления карты
