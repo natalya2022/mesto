@@ -18,12 +18,12 @@ inputJob.value = profileJob.textContent;
 function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', (evt) => closePopupEsc(evt, popup));
-    popup.addEventListener('click', (evt) => closePopupOverlay(evt, popup));
+    popup.addEventListener('mousedown', (evt) => closePopupOverlay(evt, popup));
 };
 
 //функция закрытия попапа по клику на оверлей
 
-function closePopupOverlay(evt, popup) {
+function closePopupOverlay(evt, popup) {    
     evt.currentTarget === evt.target && closePopup(popup);
 }
 
@@ -38,6 +38,10 @@ function closePopupEsc(evt, popup) {
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    const inputList = Array.from(popup.querySelectorAll(obj.inputSelector));
+    inputList.forEach((inputElement) => {
+        hideInputError(obj, popup, inputElement);
+    });
 }
 
 //функция открытие профиля на редактирование
@@ -113,6 +117,8 @@ addNewCardButton.addEventListener('click', showPopup);
 function showPopup(evt) {
     evt.preventDefault();
     openPopup(addCard);
+    inputPlace.value = '';
+    inputLink.value = '';
 }
 
 //функция добавления карты
@@ -125,9 +131,7 @@ function addNewCard(evt) {
             link: inputLink.value,
         });
         ul.prepend(card);
-        closePopup(addCard);
-        inputPlace.value = '';
-        inputLink.value = '';
+        closePopup(addCard);        
     }
 }
 

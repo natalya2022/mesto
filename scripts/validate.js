@@ -1,8 +1,7 @@
 // функция показывает сообщения об ошибках ввода
 
 const showInputError = (obj, formElement, inputElement, errorMessage) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    console.log(errorElement);
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);    
     inputElement.classList.add(obj.inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(obj.errorClass);
@@ -46,26 +45,20 @@ const isValidForm = (form) => {
 
 // Функция определяет поведение кнопки
 
-const toggleButtonState = (obj, inputList, buttonElement) => {
-    // console.log(inputList);
+const toggleButtonState = (obj, inputList, buttonElement) => {    
     if (hasInvalidInput(inputList)) {
-        buttonElement.classList.add(obj.inactiveButtonClass);
-        console.log('add', inputList);
+        buttonElement.classList.add(obj.inactiveButtonClass);        
     } else {
-        buttonElement.classList.remove(obj.inactiveButtonClass);
-        console.log('remove', inputList);
+        buttonElement.classList.remove(obj.inactiveButtonClass);        
     }
 };
 
 // Функция принимает формы, навешивает слушателей на поля ввода путем их перебора через forEach 
 
-const setEventListeners = (obj, formElement) => {
-    console.log(formElement);
+const setEventListeners = (obj, formElement) => {    
     const inputList = Array.from(formElement.querySelectorAll(obj.inputSelector));
     const buttonElement = formElement.querySelector(obj.submitButtonSelector);
-    console.log(inputList);
-    console.log(buttonElement);
-
+    
     toggleButtonState(obj, inputList, buttonElement);
 
     inputList.forEach((inputElement) => {
@@ -79,8 +72,7 @@ const setEventListeners = (obj, formElement) => {
 // Начальная функция, принимает объект с параметрами, создает массив форм документа, отменяет стандартную отправку формы
 
 const enableValidation = (obj) => {
-    const formList = Array.from(document.querySelectorAll(obj.formSelector));
-    console.log(formList);
+    const formList = Array.from(document.querySelectorAll(obj.formSelector));    
     formList.forEach((formElement) => {
         formElement.addEventListener('submit', function (evt) {
             evt.preventDefault();
