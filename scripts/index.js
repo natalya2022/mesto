@@ -18,7 +18,7 @@ inputJob.value = profileJob.textContent;
 function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', (evt) => closePopupEsc(evt, popup));
-    popup.addEventListener('click', (evt) => closePopupOverlay(evt, popup));       
+    popup.addEventListener('click', (evt) => closePopupOverlay(evt, popup));
 };
 
 //функция закрытия попапа по клику на оверлей
@@ -29,7 +29,7 @@ function closePopupOverlay(evt, popup) {
 
 //функция закрытия попапа по кнопке Escape
 
-function closePopupEsc(evt, popup) {    
+function closePopupEsc(evt, popup) {
     evt.key === 'Escape' && closePopup(popup);
     document.removeEventListener('keydown', closePopupEsc);
 };
@@ -66,9 +66,11 @@ formProfile.addEventListener('submit', saveProfile);
 
 function saveProfile(evt) {
     evt.preventDefault();
-    profileName.textContent = inputName.value;
-    profileJob.textContent = inputJob.value;
-    closePopup(editPopup);
+    if (isValidForm(evt.target)) {
+        profileName.textContent = inputName.value;
+        profileJob.textContent = inputJob.value;
+        closePopup(editPopup);
+    }
 }
 
 const ul = document.querySelector('.photo-grid__places');
@@ -117,14 +119,16 @@ function showPopup(evt) {
 
 function addNewCard(evt) {
     evt.preventDefault();
-    const card = createCard({
-        name: inputPlace.value,
-        link: inputLink.value,
-    });
-    ul.prepend(card);
-    closePopup(addCard);
-    inputPlace.value = '';
-    inputLink.value = '';
+    if (isValidForm(evt.target)) {
+        const card = createCard({
+            name: inputPlace.value,
+            link: inputLink.value,
+        });
+        ul.prepend(card);
+        closePopup(addCard);
+        inputPlace.value = '';
+        inputLink.value = '';
+    }
 }
 
 //обработка формы добавления карты
@@ -153,7 +157,7 @@ const popupPhotoName = popupImage.querySelector('.popup__place-name');
 //функция просмотра изображения
 
 function showPopupImage(event) {
-    event.preventDefault();    
+    event.preventDefault();
     popupPhoto.setAttribute('src', event.target.src);
     popupPhoto.setAttribute('alt', event.target.alt);
     popupPhotoName.innerText = event.target.alt;

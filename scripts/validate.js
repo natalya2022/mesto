@@ -1,4 +1,3 @@
-
 // функция показывает сообщения об ошибках ввода
 
 const showInputError = (obj, formElement, inputElement, errorMessage) => {
@@ -36,6 +35,14 @@ const hasInvalidInput = (inputList) => {
         return !inputElement.validity.valid;
     })
 };
+
+// Функция валидности формы
+
+const isValidForm = (form) => {
+    const inputList = Array.from(form.querySelectorAll(obj.inputSelector));
+    return !hasInvalidInput(inputList);
+};
+
 
 // Функция определяет поведение кнопки
 
