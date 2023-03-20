@@ -1,6 +1,5 @@
 const editProfileOpenButton = document.querySelector('.profile__edit');
 const editPopup = document.querySelector('.popup_type_profile');
-const closePopupAllButtons = document.querySelectorAll('.popup__close');
 const inputName = document.querySelector('.popup__text_field_name');
 const inputJob = document.querySelector('.popup__text_field_occupation');
 const profileName = document.querySelector('.profile__title');
@@ -16,17 +15,23 @@ editProfileOpenButton.addEventListener('click', editProfile);
 function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', closePopupEsc);
-    popup.addEventListener('mousedown', closePopupOverlay);
+    // popup.addEventListener('mousedown', closePopupOverlay);
 };
 
-//функция закрытия попапа по клику на оверлей
+// функция закрытия попапов по клику на оверлей либо на кнопку закрытия
 
-function closePopupOverlay(evt) {
-    if (evt.currentTarget === evt.target) {
-        const openedPopup = document.querySelector('.popup_opened');
-        closePopup(openedPopup);
-    }
-};
+const popups = document.querySelectorAll('.popup');
+
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup);
+        }
+        if (evt.target.classList.contains('popup__close')) {
+            closePopup(popup);
+        }
+    })
+})
 
 //функция закрытия попапа по кнопке Escape
 
@@ -41,8 +46,7 @@ function closePopupEsc(evt) {
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closePopupEsc);
-    popup.removeEventListener('mousedown', closePopupOverlay);
+    document.removeEventListener('keydown', closePopupEsc);    
 }
 
 //функция открытие профиля на редактирование
@@ -62,15 +66,6 @@ function editProfile(evt) {
     buttonElement.classList.remove(obj.inactiveButtonClass);
     buttonElement.removeAttribute("disabled");
 }
-
-//обработка каждой из кнопок закрытия
-
-closePopupAllButtons.forEach((button) => {
-    button.addEventListener('click', function (evt) {
-        evt.preventDefault();
-        closePopup(evt.target.closest('div.popup'));
-    });
-})
 
 //обработка формы профиля
 
@@ -96,8 +91,8 @@ function createCard(card) {
     const likeCardButton = newCard.querySelector('.photo-grid__like');
     const deleteCardButton = newCard.querySelector('.photo-grid__delete');
     likeCardButton.addEventListener('click', toggleLike);
-    deleteCardButton.addEventListener('click', deleteCard);
-    cardImage.addEventListener('click', showPopupImage);
+    deleteCardButton.addEventListener('click', deleteCard);    
+    cardImage.addEventListener('click', () => showPopupImage(card));
     cardImage.setAttribute('src', card.link);
     cardImage.setAttribute('alt', card.name);
     cardTitle.textContent = card.name;
@@ -133,14 +128,14 @@ function showPopup(evt) {
 //функция добавления карты
 
 function addNewCard(evt) {
-    evt.preventDefault();    
+    evt.preventDefault();
     const card = createCard({
         name: inputPlace.value,
         link: inputLink.value,
     });
     cardsSection.prepend(card);
     closePopup(addCard);
-    evt.target.reset();    
+    evt.target.reset();
 }
 
 //обработка формы добавления карты
@@ -168,10 +163,9 @@ const popupPhotoName = popupImage.querySelector('.popup__place-name');
 
 //функция просмотра изображения
 
-function showPopupImage(event) {
-    event.preventDefault();
-    popupPhoto.setAttribute('src', event.target.src);
-    popupPhoto.setAttribute('alt', event.target.alt);
-    popupPhotoName.innerText = event.target.alt;
+function showPopupImage(card) {    
+    popupPhoto.setAttribute('src', card.link);
+    popupPhoto.setAttribute('alt', card.name);
+    popupPhotoName.innerText = card.name;
     openPopup(popupImage);
 }
