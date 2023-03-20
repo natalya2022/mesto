@@ -1,7 +1,7 @@
 // функция показывает сообщения об ошибках ввода
 
 const showInputError = (obj, formElement, inputElement, errorMessage) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);    
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(obj.inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(obj.errorClass);
@@ -26,7 +26,6 @@ const checkInputValidity = (formElement, inputElement) => {
     }
 };
 
-
 // Функция определяет валидность поля
 
 const hasInvalidInput = (inputList) => {
@@ -35,30 +34,24 @@ const hasInvalidInput = (inputList) => {
     })
 };
 
-// Функция валидности формы
-
-const isValidForm = (form) => {
-    const inputList = Array.from(form.querySelectorAll(obj.inputSelector));
-    return !hasInvalidInput(inputList);
-};
-
-
 // Функция определяет поведение кнопки
 
-const toggleButtonState = (obj, inputList, buttonElement) => {    
+const toggleButtonState = (obj, inputList, buttonElement) => {
     if (hasInvalidInput(inputList)) {
-        buttonElement.classList.add(obj.inactiveButtonClass);        
+        buttonElement.classList.add(obj.inactiveButtonClass);
+        buttonElement.setAttribute("disabled", "disabled"); 
     } else {
-        buttonElement.classList.remove(obj.inactiveButtonClass);        
+        buttonElement.classList.remove(obj.inactiveButtonClass);
+        buttonElement.removeAttribute("disabled"); 
     }
 };
 
 // Функция принимает формы, навешивает слушателей на поля ввода путем их перебора через forEach 
 
-const setEventListeners = (obj, formElement) => {    
+const setEventListeners = (obj, formElement) => {
     const inputList = Array.from(formElement.querySelectorAll(obj.inputSelector));
     const buttonElement = formElement.querySelector(obj.submitButtonSelector);
-    
+
     toggleButtonState(obj, inputList, buttonElement);
 
     inputList.forEach((inputElement) => {
@@ -72,7 +65,7 @@ const setEventListeners = (obj, formElement) => {
 // Начальная функция, принимает объект с параметрами, создает массив форм документа, отменяет стандартную отправку формы
 
 const enableValidation = (obj) => {
-    const formList = Array.from(document.querySelectorAll(obj.formSelector));    
+    const formList = Array.from(document.querySelectorAll(obj.formSelector));
     formList.forEach((formElement) => {
         formElement.addEventListener('submit', function (evt) {
             evt.preventDefault();
