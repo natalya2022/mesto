@@ -6,6 +6,7 @@ const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__occupation');
 const formProfile = document.forms['form-edit'];
 const newCardTemplate = document.querySelector('#cardTemplate');
+console.log('///', newCardTemplate);
 
 
 editProfileOpenButton.addEventListener('click', editProfile);
@@ -101,9 +102,9 @@ function createCard(card) {
 
 //создание всех карт из массива
 
-initialCards.forEach((card) => {
-    cardsSection.append(createCard(card));
-})
+// initialCards.forEach((card) => {
+//     cardsSection.append(createCard(card));
+// })
 
 const addNewCardButton = document.querySelector('.profile__add');
 const addCard = document.querySelector('.popup_type_place');
@@ -129,11 +130,13 @@ function showPopup(evt) {
 
 function addNewCard(evt) {
     evt.preventDefault();
-    const card = createCard({
-        name: inputPlace.value,
-        link: inputLink.value,
-    });
-    cardsSection.prepend(card);
+    // const card = createCard({
+    //     name: inputPlace.value,
+    //     link: inputLink.value,
+    // });
+    // cardsSection.prepend(card);
+    const cardItem = new Card(inputLink.value, inputPlace.value, '#cardTemplate');
+    cardsSection.prepend(cardItem.createCard());
     closePopup(addCard);
     evt.target.reset();
 }
