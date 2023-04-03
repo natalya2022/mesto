@@ -6,7 +6,6 @@ const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__occupation');
 const formProfile = document.forms['form-edit'];
 const newCardTemplate = document.querySelector('#cardTemplate');
-console.log('///', newCardTemplate);
 
 
 editProfileOpenButton.addEventListener('click', editProfile);
@@ -56,7 +55,7 @@ function editProfile(evt) {
     evt.preventDefault();
     const inputList = Array.from(editPopup.querySelectorAll(obj.inputSelector));
     inputList.forEach((inputElement) => {
-        hideInputError(obj, editPopup, inputElement);
+        validator.hideInputError(editPopup, inputElement);
     });
 
     openPopup(editPopup);
@@ -85,20 +84,20 @@ const cardsSection = document.querySelector('.photo-grid__places');
 
 //функция создания одной карты из темплейта
 
-function createCard(card) {
-    const newCard = newCardTemplate.content.cloneNode(true);
-    const cardImage = newCard.querySelector('.photo-grid__picture');
-    const cardTitle = newCard.querySelector('.photo-grid__title');
-    const likeCardButton = newCard.querySelector('.photo-grid__like');
-    const deleteCardButton = newCard.querySelector('.photo-grid__delete');
-    likeCardButton.addEventListener('click', toggleLike);
-    deleteCardButton.addEventListener('click', deleteCard);    
-    cardImage.addEventListener('click', () => showPopupImage(card));
-    cardImage.setAttribute('src', card.link);
-    cardImage.setAttribute('alt', card.name);
-    cardTitle.textContent = card.name;
-    return newCard;
-}
+// function createCard(card) {
+//     const newCard = newCardTemplate.content.cloneNode(true);
+//     const cardImage = newCard.querySelector('.photo-grid__picture');
+//     const cardTitle = newCard.querySelector('.photo-grid__title');
+//     const likeCardButton = newCard.querySelector('.photo-grid__like');
+//     const deleteCardButton = newCard.querySelector('.photo-grid__delete');
+//     likeCardButton.addEventListener('click', toggleLike);
+//     deleteCardButton.addEventListener('click', deleteCard);    
+//     cardImage.addEventListener('click', () => showPopupImage(card));
+//     cardImage.setAttribute('src', card.link);
+//     cardImage.setAttribute('alt', card.name);
+//     cardTitle.textContent = card.name;
+//     return newCard;
+// }
 
 //создание всех карт из массива
 
@@ -129,12 +128,7 @@ function showPopup(evt) {
 //функция добавления карты
 
 function addNewCard(evt) {
-    evt.preventDefault();
-    // const card = createCard({
-    //     name: inputPlace.value,
-    //     link: inputLink.value,
-    // });
-    // cardsSection.prepend(card);
+    evt.preventDefault();    
     const cardItem = new Card(inputLink.value, inputPlace.value, '#cardTemplate');
     cardsSection.prepend(cardItem.createCard());
     closePopup(addCard);
@@ -147,18 +141,18 @@ formNewCard.addEventListener('submit', addNewCard);
 
 //функция лайка
 
-function toggleLike(event) {
-    const like = event.target;
-    like.classList.toggle('photo-grid__like_acltive');
-}
+// function toggleLike(event) {
+//     const like = event.target;
+//     like.classList.toggle('photo-grid__like_acltive');
+// }
 
 //функция удаления карты
 
-function deleteCard(event) {
-    const del = event.target;
-    const card = del.closest('.photo-grid__place');
-    card.remove();
-}
+// function deleteCard(event) {
+//     const del = event.target;
+//     const card = del.closest('.photo-grid__place');
+//     card.remove();
+// }
 
 const popupImage = document.querySelector('.popup_type_image');
 const popupPhoto = popupImage.querySelector('.popup__photo');
@@ -166,9 +160,9 @@ const popupPhotoName = popupImage.querySelector('.popup__place-name');
 
 //функция просмотра изображения
 
-function showPopupImage(card) {    
-    popupPhoto.setAttribute('src', card.link);
-    popupPhoto.setAttribute('alt', card.name);
-    popupPhotoName.innerText = card.name;
-    openPopup(popupImage);
-}
+// function showPopupImage(card) {    
+//     popupPhoto.setAttribute('src', card.link);
+//     popupPhoto.setAttribute('alt', card.name);
+//     popupPhotoName.innerText = card.name;
+//     openPopup(popupImage);
+// }

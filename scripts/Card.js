@@ -5,6 +5,7 @@ class Card {
         this._template = template;                
     }
 
+
     _getTemplate() {        
         const newCard = document.createElement('li');
         newCard.classList.add('photo-grid__place');
@@ -12,6 +13,7 @@ class Card {
         return newCard;
     }
     
+
     createCard() {
         this._element = this._getTemplate();
         this._imageSelector = this._element.querySelector('.photo-grid__picture');
@@ -26,6 +28,7 @@ class Card {
         return this._element;
     }
  
+
     _setEventListeners() {
         this._likeCardButton.addEventListener('click', () => {
             this._toggleLike();
@@ -38,23 +41,25 @@ class Card {
         });
     }
     
+
     _toggleLike() {         
         this._likeCardButton.classList.toggle('photo-grid__like_acltive');
     }
+
 
     _deleteCard() {        
         this._element.remove();        
     }
 
-    _showPopupImage() {
-        console.log('_showPopupImage');
+
+    _showPopupImage() {        
         popupPhoto.setAttribute('src', this._imageLink);
         popupPhoto.setAttribute('alt', this._name);
         popupPhotoName.innerText = this._name;
         openPopup(popupImage);
     }
-
 }
+
 
 initialCards.forEach((card) => {
     const cardItem = new Card(card.link, card.name, '#cardTemplate');
