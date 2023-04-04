@@ -8,7 +8,7 @@ export default class FormValidator {
         this._errorClass = obj.errorClass;
     }
 
-    
+
     // метод показывает сообщения об ошибках ввода
 
     _showInputError = (formElement, inputElement, errorMessage) => {
@@ -90,17 +90,3 @@ export default class FormValidator {
     }
 }
 
-
-// const obj = {
-//     formSelector: '.popup__edit',
-//     inputSelector: '.popup__input',
-//     submitButtonSelector: '.popup__save',
-//     inactiveButtonClass: 'popup__save_disabled',
-//     inputErrorClass: 'popup__input_type_error',
-//     errorClass: 'popup__error_visible'
-// };
-
-// // Точка входа в программу валидации
-
-// const validator = new FormValidator(obj);
-// validator.enableValidation();
