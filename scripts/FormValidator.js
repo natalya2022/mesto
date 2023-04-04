@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
     constructor(obj) {
         this._formSelector = obj.formSelector;
         this._inputSelector = obj.inputSelector;
@@ -8,8 +8,8 @@ class FormValidator {
         this._errorClass = obj.errorClass;
     }
 
-
-    // функция показывает сообщения об ошибках ввода
+    
+    // метод показывает сообщения об ошибках ввода
 
     _showInputError = (formElement, inputElement, errorMessage) => {
         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -19,7 +19,7 @@ class FormValidator {
     };
 
 
-    // функция скрывает сообщения об ошибках ввода
+    // метод скрывает сообщения об ошибках ввода
 
     hideInputError = (formElement, inputElement) => {
         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -91,16 +91,16 @@ class FormValidator {
 }
 
 
-const obj = {
-    formSelector: '.popup__edit',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__save',
-    inactiveButtonClass: 'popup__save_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
-};
+// const obj = {
+//     formSelector: '.popup__edit',
+//     inputSelector: '.popup__input',
+//     submitButtonSelector: '.popup__save',
+//     inactiveButtonClass: 'popup__save_disabled',
+//     inputErrorClass: 'popup__input_type_error',
+//     errorClass: 'popup__error_visible'
+// };
 
-// Точка входа в программу валидации
+// // Точка входа в программу валидации
 
-const validator = new FormValidator(obj);
-validator.enableValidation();
+// const validator = new FormValidator(obj);
+// validator.enableValidation();
