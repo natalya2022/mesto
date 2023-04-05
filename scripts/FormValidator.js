@@ -22,7 +22,7 @@ export default class FormValidator {
     };
 
 
-    // метод скрывает сообщения о всех ошибках ввода 
+    // метод скрывает сообщения обо всех ошибках ввода 
 
     hideInputErrors = () => {        
         this._inputList.forEach((inputElement) => {                        
@@ -60,19 +60,28 @@ export default class FormValidator {
         })
     };
 
+    
+    
+
 
     // метод определяет поведение кнопки
 
-    _toggleButtonState(inputList, buttonElement) {
-        if (this._hasInvalidInput(inputList)) {
-            buttonElement.classList.add(this._inactiveButtonClass);
-            buttonElement.setAttribute("disabled", "disabled");
+    _toggleButtonState() {
+        if (this._hasInvalidInput(this._inputList)) {
+            this._buttonElement.classList.add(this._inactiveButtonClass);
+            this._buttonElement.setAttribute("disabled", "disabled");
         } else {
-            buttonElement.classList.remove(this._inactiveButtonClass);
-            buttonElement.removeAttribute("disabled");
+            this._buttonElement.classList.remove(this._inactiveButtonClass);
+            this._buttonElement.removeAttribute("disabled");
         }
     };
 
+
+    setButtonState() {
+        console.log('setButtonState');
+
+        this._toggleButtonState(); 
+    };
 
     // метод принимает формы, навешивает слушателей на поля ввода путем их перебора через forEach 
 
@@ -83,7 +92,7 @@ export default class FormValidator {
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(formElement, inputElement);
-                this._toggleButtonState(this._inputList, this._buttonElement);
+                this._toggleButtonState();
             });
         });
     };
@@ -96,7 +105,7 @@ export default class FormValidator {
                 evt.preventDefault();
             });
             this._setEventListeners(this._formElement);
-            this._toggleButtonState(this._inputList, this._buttonElement);
+            this._toggleButtonState();
         };    
 }
 

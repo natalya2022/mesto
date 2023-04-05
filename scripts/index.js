@@ -66,10 +66,10 @@ function editProfile(evt) {
     inputName.value = profileName.textContent;
     inputJob.value = profileJob.textContent;
     
-
-    const buttonElement = editPopup.querySelector(validationParameters.submitButtonSelector);
-    buttonElement.classList.remove(validationParameters.inactiveButtonClass);
-    buttonElement.removeAttribute("disabled");
+    validProfile.setButtonState();
+    // const buttonElement = editPopup.querySelector(validationParameters.submitButtonSelector);
+    // buttonElement.classList.remove(validationParameters.inactiveButtonClass);
+    // buttonElement.removeAttribute("disabled");
 }
 
 //обработка формы профиля
@@ -106,9 +106,10 @@ function showPopup(evt) {
     evt.preventDefault();
     validPlace.hideInputErrors();
     openPopup(addCard);
-    const buttonElement = formNewCard.querySelector(validationParameters.submitButtonSelector);
-    buttonElement.classList.add(validationParameters.inactiveButtonClass);
-    buttonElement.setAttribute("disabled", "disabled");
+    // const buttonElement = formNewCard.querySelector(validationParameters.submitButtonSelector);
+    // buttonElement.classList.add(validationParameters.inactiveButtonClass);
+    // buttonElement.setAttribute("disabled", "disabled");
+    validPlace.setButtonState();
 }
 
 // функция создания экземпляра карты
