@@ -1,11 +1,14 @@
 export default class FormValidator {
-    constructor(obj) {
+    constructor(obj, formElement) {
         this._formSelector = obj.formSelector;
         this._inputSelector = obj.inputSelector;
         this._submitButtonSelector = obj.submitButtonSelector;
         this._inactiveButtonClass = obj.inactiveButtonClass;
         this._inputErrorClass = obj.inputErrorClass;
         this._errorClass = obj.errorClass;
+        this._formElement = formElement;
+        this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+        this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
     }
 
 
@@ -65,28 +68,26 @@ export default class FormValidator {
     // метод принимает формы, навешивает слушателей на поля ввода путем их перебора через forEach 
 
     _setEventListeners(formElement) {
-        const inputList = Array.from(formElement.querySelectorAll(this._inputSelector));
-        const buttonElement = formElement.querySelector(this._submitButtonSelector);
-
-        this._toggleButtonState(inputList, buttonElement);
-
-        inputList.forEach((inputElement) => {
+        // this._inputList = Array.from(formElement.querySelectorAll(this._inputSelector));
+        // this._buttonElement = formElement.querySelector(this._submitButtonSelector);
+        
+        this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(formElement, inputElement);
-                this._toggleButtonState(inputList, buttonElement);
+                this._toggleButtonState(this._inputList, this._buttonElement);
             });
         });
     };
 
 
     enableValidation() {
-        const formList = Array.from(document.querySelectorAll(this._formSelector));
-        formList.forEach((formElement) => {
-            formElement.addEventListener('submit', function (evt) {
+        // const formList = Array.from(document.querySelectorAll(this._formSelector));
+        // formList.forEach((formElement) => {
+            this._formElement.addEventListener('submit', function (evt) {
                 evt.preventDefault();
             });
-            this._setEventListeners(formElement);
-        });
-    }
+            this._setEventListeners(this._formElement);
+            this._toggleButtonState(this._inputList, this._buttonElement);
+        };    
 }
 

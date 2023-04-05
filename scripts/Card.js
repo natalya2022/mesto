@@ -1,12 +1,11 @@
+import {popupImage, popupPhoto, popupPhotoName} from './index.js'
+
 export default class Card {
     constructor(imageLink, name, template, openPopup) {
         this._imageLink = imageLink;
         this._name = name;
-        this._template = template;
-        this._popupImage = document.querySelector('.popup_type_image');
-        this._popupPhoto = this._popupImage.querySelector('.popup__photo');
-        this._popupPhotoName = this._popupImage.querySelector('.popup__place-name');
-        this._openPopup = openPopup;                
+        this._template = template;        
+        this._openPopup = openPopup;                       
     }
 
     // метод работает с темплейтом, создает заготовку карточки
@@ -57,16 +56,17 @@ export default class Card {
     // метод удаления карточки
 
     _deleteCard() {        
-        this._element.remove();        
+        this._element.remove();
+        this._element = null;        
     }
 
     // метод показа слайда
 
-    _showPopupImage() {           
-        this._popupPhoto.setAttribute('src', this._imageLink);
-        this._popupPhoto.setAttribute('alt', this._name);
-        this._popupPhotoName.innerText = this._name;
-        this._openPopup(this._popupImage);
+    _showPopupImage() {                   
+        popupPhoto.setAttribute('src', this._imageLink);
+        popupPhoto.setAttribute('alt', this._name);
+        popupPhotoName.innerText = this._name;
+        this._openPopup(popupImage);
     }
 }
 

@@ -1,6 +1,7 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import {initialCards} from './cards.js';
+import {validationParameters} from './validationParameters.js';
 
 const editProfileOpenButton = document.querySelector('.profile__edit');
 const editPopup = document.querySelector('.popup_type_profile');
@@ -9,6 +10,10 @@ const inputJob = document.querySelector('.popup__text_field_occupation');
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__occupation');
 const formProfile = document.forms['form-edit'];
+const profileFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formProfileName);
+const placeFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formPlaceName);
+console.log(profileFormElement);
+
 
 
 editProfileOpenButton.addEventListener('click', editProfile);
@@ -53,19 +58,19 @@ function closePopup(popup) {
 
 //функция открытие профиля на редактирование
 
-function editProfile(evt) {
+function editProfile(evt, profileFormElement) {
     evt.preventDefault();
-    const inputList = Array.from(editPopup.querySelectorAll(obj.inputSelector));
-    inputList.forEach((inputElement) => {
+    // const inputList = Array.from(editPopup.querySelectorAll(validationParameters.inputSelector));
+    inputList.forEach((profileFormElement) => {
         validator.hideInputError(editPopup, inputElement);
     });
-
+    validProfile.hideInputError(profileFormElement, profileFormElement);
     openPopup(editPopup);
     inputName.value = profileName.textContent;
     inputJob.value = profileJob.textContent;
 
-    const buttonElement = editPopup.querySelector(obj.submitButtonSelector);
-    buttonElement.classList.remove(obj.inactiveButtonClass);
+    const buttonElement = editPopup.querySelector(validationParameters.submitButtonSelector);
+    buttonElement.classList.remove(validationParameters.inactiveButtonClass);
     buttonElement.removeAttribute("disabled");
 }
 
@@ -82,15 +87,16 @@ function saveProfile(evt) {
     closePopup(editPopup);
 }
 
+
 const cardsSection = document.querySelector('.photo-grid__places');
-
-
-
 const addNewCardButton = document.querySelector('.profile__add');
 const addCard = document.querySelector('.popup_type_place');
 const inputPlace = document.querySelector('.popup__text_field_place');
 const inputLink = document.querySelector('.popup__text_field_url');
 const formNewCard = document.forms['form-add'];
+export const popupImage = document.querySelector('.popup_type_image');
+export const popupPhoto = popupImage.querySelector('.popup__photo');
+export const popupPhotoName = popupImage.querySelector('.popup__place-name');
 
 // слушатель на кнопку добавления карты
 
@@ -101,17 +107,24 @@ addNewCardButton.addEventListener('click', showPopup);
 function showPopup(evt) {
     evt.preventDefault();
     openPopup(addCard);
-    const buttonElement = formNewCard.querySelector(obj.submitButtonSelector);
-    buttonElement.classList.add(obj.inactiveButtonClass);
+    const buttonElement = formNewCard.querySelector(validationParameters.submitButtonSelector);
+    buttonElement.classList.add(validationParameters.inactiveButtonClass);
     buttonElement.setAttribute("disabled", "disabled");
 }
 
-//функция добавления карты
+// функция создания экземпляра карты
+
+function createNewCard(link, name) {
+    const cardItem = new Card(link, name, '#cardTemplate', openPopup);    
+    return cardItem.createCard();        
+}
+
+// функция добавления карты
 
 function addNewCard(evt) {
     evt.preventDefault();    
-    const cardItem = new Card(inputLink.value, inputPlace.value, '#cardTemplate');
-    cardsSection.prepend(cardItem.createCard());
+    const cardItem = createNewCard(inputLink.value, inputPlace.value);    
+    cardsSection.prepend(cardItem);
     closePopup(addCard);
     evt.target.reset();
 }
@@ -120,25 +133,36 @@ function addNewCard(evt) {
 
 formNewCard.addEventListener('submit', addNewCard);
 
+
 //создание всех карт из массива с помощью класса Card
 
-initialCards.forEach((card) => {
-    const cardItem = new Card(card.link, card.name, '#cardTemplate', openPopup);
-    cardsSection.append(cardItem.createCard());
+initialCards.forEach((card) => {    
+    const cardItem = createNewCard(card.link, card.name);    
+    cardsSection.append(cardItem);
 })
 
 // объект параметров
 
-const obj = {
-    formSelector: '.popup__edit',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__save',
-    inactiveButtonClass: 'popup__save_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
-};
+// const validationParameters = {
+//     formSelector: '.popup__edit',
+//     formProfileName: '[name="form-edit"]',
+//     formPlaceName: '[name="form-add"]',
+//     inputSelector: '.popup__input',
+//     submitButtonSelector: '.popup__save',
+//     inactiveButtonClass: 'popup__save_disabled',
+//     inputErrorClass: 'popup__input_type_error',
+//     errorClass: 'popup__error_visible'
+// };
 
-// точка входа в программу валидации
+// вход в программу валидации
 
-const validator = new FormValidator(obj);
-validator.enableValidation();
+// const profileFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formProfileName);
+const validProfile = new FormValidator(validationParameters, profileFormElement);
+validProfile.enableValidation();
+
+// const placeFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formPlaceName);
+const validPlace = new FormValidator(validationParameters, placeFormElement);
+validPlace.enableValidation();
+
+// console.log(document.querySelector(validationParameters.formSelector + validationParameters.formProfileName));
+// console.log(document.querySelector(validationParameters.formSelector + validationParameters.formPlaceName));
