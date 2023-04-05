@@ -14,7 +14,7 @@ export default class FormValidator {
 
     // метод показывает сообщения об ошибках ввода
 
-    _showInputError = (formElement, inputElement, errorMessage) => {
+    _showInputElementError = (formElement, inputElement, errorMessage) => {
         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
         inputElement.classList.add(this._inputErrorClass);
         errorElement.textContent = errorMessage;
@@ -22,23 +22,32 @@ export default class FormValidator {
     };
 
 
-    // метод скрывает сообщения об ошибках ввода
+    // метод скрывает сообщения о всех ошибках ввода 
 
-    hideInputError = (formElement, inputElement) => {
+    hideInputErrors = () => {        
+        this._inputList.forEach((inputElement) => {                        
+            this._hideInputElementError(this._formElement, inputElement);
+        });
+        console.log('wrwrw');
+    };
+    
+    // метод скрывает сообщение об ошибках одного поля
+
+    _hideInputElementError = (formElement, inputElement) => {
         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
         inputElement.classList.remove(this._inputErrorClass);
         errorElement.classList.remove(this._errorClass);
         errorElement.textContent = '';
     };
-
+    
 
     // метод вызывает функции показа ошибок в зависимости от валидности полей
 
     _checkInputValidity(formElement, inputElement) {
         if (!inputElement.validity.valid) {
-            this._showInputError(formElement, inputElement, inputElement.validationMessage);
+            this._showInputElementError(formElement, inputElement, inputElement.validationMessage);
         } else {
-            this.hideInputError(formElement, inputElement);
+            this._hideInputElementError(formElement, inputElement);
         }
     };
 

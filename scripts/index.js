@@ -10,11 +10,6 @@ const inputJob = document.querySelector('.popup__text_field_occupation');
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__occupation');
 const formProfile = document.forms['form-edit'];
-const profileFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formProfileName);
-const placeFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formPlaceName);
-console.log(profileFormElement);
-
-
 
 editProfileOpenButton.addEventListener('click', editProfile);
 
@@ -58,16 +53,19 @@ function closePopup(popup) {
 
 //функция открытие профиля на редактирование
 
-function editProfile(evt, profileFormElement) {
+function editProfile(evt) {
     evt.preventDefault();
     // const inputList = Array.from(editPopup.querySelectorAll(validationParameters.inputSelector));
-    inputList.forEach((profileFormElement) => {
-        validator.hideInputError(editPopup, inputElement);
-    });
-    validProfile.hideInputError(profileFormElement, profileFormElement);
+    // inputList.forEach((inputElement) => {
+    //     validProfile.hideInputError(validationParameters, editPopup, inputElement);
+    // });
+    console.log('sf');
+    validProfile.hideInputErrors();
+
     openPopup(editPopup);
     inputName.value = profileName.textContent;
     inputJob.value = profileJob.textContent;
+    
 
     const buttonElement = editPopup.querySelector(validationParameters.submitButtonSelector);
     buttonElement.classList.remove(validationParameters.inactiveButtonClass);
@@ -106,6 +104,7 @@ addNewCardButton.addEventListener('click', showPopup);
 
 function showPopup(evt) {
     evt.preventDefault();
+    validPlace.hideInputErrors();
     openPopup(addCard);
     const buttonElement = formNewCard.querySelector(validationParameters.submitButtonSelector);
     buttonElement.classList.add(validationParameters.inactiveButtonClass);
@@ -156,11 +155,11 @@ initialCards.forEach((card) => {
 
 // вход в программу валидации
 
-// const profileFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formProfileName);
+const profileFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formProfileName);
 const validProfile = new FormValidator(validationParameters, profileFormElement);
 validProfile.enableValidation();
 
-// const placeFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formPlaceName);
+const placeFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formPlaceName);
 const validPlace = new FormValidator(validationParameters, placeFormElement);
 validPlace.enableValidation();
 
