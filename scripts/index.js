@@ -1,7 +1,7 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import {initialCards} from './cards.js';
-import {validationParameters} from './validationParameters.js';
+import {parameters} from './validationParameters.js';
 
 const editProfileOpenButton = document.querySelector('.profile__edit');
 const editPopup = document.querySelector('.popup_type_profile');
@@ -54,22 +54,14 @@ function closePopup(popup) {
 //функция открытие профиля на редактирование
 
 function editProfile(evt) {
-    evt.preventDefault();
-    // const inputList = Array.from(editPopup.querySelectorAll(validationParameters.inputSelector));
-    // inputList.forEach((inputElement) => {
-    //     validProfile.hideInputError(validationParameters, editPopup, inputElement);
-    // });
-    console.log('sf');
-    validProfile.hideInputErrors();
+    evt.preventDefault();        
+    profileValidator.hideInputErrors();
 
     openPopup(editPopup);
     inputName.value = profileName.textContent;
     inputJob.value = profileJob.textContent;
     
-    validProfile.setButtonState();
-    // const buttonElement = editPopup.querySelector(validationParameters.submitButtonSelector);
-    // buttonElement.classList.remove(validationParameters.inactiveButtonClass);
-    // buttonElement.removeAttribute("disabled");
+    profileValidator.setButtonState();    
 }
 
 //обработка формы профиля
@@ -96,6 +88,7 @@ export const popupImage = document.querySelector('.popup_type_image');
 export const popupPhoto = popupImage.querySelector('.popup__photo');
 export const popupPhotoName = popupImage.querySelector('.popup__place-name');
 
+
 // слушатель на кнопку добавления карты
 
 addNewCardButton.addEventListener('click', showPopup);
@@ -104,12 +97,9 @@ addNewCardButton.addEventListener('click', showPopup);
 
 function showPopup(evt) {
     evt.preventDefault();
-    validPlace.hideInputErrors();
-    openPopup(addCard);
-    // const buttonElement = formNewCard.querySelector(validationParameters.submitButtonSelector);
-    // buttonElement.classList.add(validationParameters.inactiveButtonClass);
-    // buttonElement.setAttribute("disabled", "disabled");
-    validPlace.setButtonState();
+    placeValidator.hideInputErrors();
+    openPopup(addCard);   
+    placeValidator.setButtonState();
 }
 
 // функция создания экземпляра карты
@@ -141,28 +131,14 @@ initialCards.forEach((card) => {
     cardsSection.append(cardItem);
 })
 
-// объект параметров
-
-// const validationParameters = {
-//     formSelector: '.popup__edit',
-//     formProfileName: '[name="form-edit"]',
-//     formPlaceName: '[name="form-add"]',
-//     inputSelector: '.popup__input',
-//     submitButtonSelector: '.popup__save',
-//     inactiveButtonClass: 'popup__save_disabled',
-//     inputErrorClass: 'popup__input_type_error',
-//     errorClass: 'popup__error_visible'
-// };
 
 // вход в программу валидации
 
-const profileFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formProfileName);
-const validProfile = new FormValidator(validationParameters, profileFormElement);
-validProfile.enableValidation();
+const profileFormElement = document.querySelector(parameters.formSelector + parameters.formProfileName);
+const profileValidator = new FormValidator(parameters, profileFormElement);
+profileValidator.enableValidation();
 
-const placeFormElement = document.querySelector(validationParameters.formSelector + validationParameters.formPlaceName);
-const validPlace = new FormValidator(validationParameters, placeFormElement);
-validPlace.enableValidation();
+const placeFormElement = document.querySelector(parameters.formSelector + parameters.formPlaceName);
+const placeValidator = new FormValidator(parameters, placeFormElement);
+placeValidator.enableValidation();
 
-// console.log(document.querySelector(validationParameters.formSelector + validationParameters.formProfileName));
-// console.log(document.querySelector(validationParameters.formSelector + validationParameters.formPlaceName));

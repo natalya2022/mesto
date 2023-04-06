@@ -1,4 +1,4 @@
-export const validationParameters = {
+export const parameters = {
     formSelector: '.popup__edit',
     formProfileName: '[name="form-edit"]',
     formPlaceName: '[name="form-add"]',
