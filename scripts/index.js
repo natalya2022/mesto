@@ -1,17 +1,17 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import {initialCards} from './cards.js';
-import {parameters} from './validationParameters.js';
+import {parameters} from './parameters.js';
 
-const editProfileOpenButton = document.querySelector('.profile__edit');
-const editPopup = document.querySelector('.popup_type_profile');
+const buttonOpenPopupProfile = document.querySelector('.profile__edit');
+const popupProfile = document.querySelector('.popup_type_profile');
 const inputName = document.querySelector('.popup__text_field_name');
 const inputJob = document.querySelector('.popup__text_field_occupation');
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__occupation');
 const formProfile = document.forms['form-edit'];
 
-editProfileOpenButton.addEventListener('click', editProfile);
+buttonOpenPopupProfile.addEventListener('click', editProfile);
 
 //функция открытия попапа
 
@@ -57,7 +57,7 @@ function editProfile(evt) {
     evt.preventDefault();        
     profileValidator.hideInputErrors();
 
-    openPopup(editPopup);
+    openPopup(popupProfile);
     inputName.value = profileName.textContent;
     inputJob.value = profileJob.textContent;
     
@@ -74,13 +74,13 @@ function saveProfile(evt) {
     evt.preventDefault();
     profileName.textContent = inputName.value;
     profileJob.textContent = inputJob.value;
-    closePopup(editPopup);
+    closePopup(popupProfile);
 }
 
 
 const cardsSection = document.querySelector('.photo-grid__places');
-const addNewCardButton = document.querySelector('.profile__add');
-const addCard = document.querySelector('.popup_type_place');
+const buttonAddNewCard = document.querySelector('.profile__add');
+const popupCard = document.querySelector('.popup_type_place');
 const inputPlace = document.querySelector('.popup__text_field_place');
 const inputLink = document.querySelector('.popup__text_field_url');
 const formNewCard = document.forms['form-add'];
@@ -91,14 +91,14 @@ export const popupPhotoName = popupImage.querySelector('.popup__place-name');
 
 // слушатель на кнопку добавления карты
 
-addNewCardButton.addEventListener('click', showPopup);
+buttonAddNewCard.addEventListener('click', showPopup);
 
 //функция показа интерфейса добавления карты
 
 function showPopup(evt) {
     evt.preventDefault();
     placeValidator.hideInputErrors();
-    openPopup(addCard);   
+    openPopup(popupCard);   
     placeValidator.setButtonState();
 }
 
@@ -115,7 +115,7 @@ function addNewCard(evt) {
     evt.preventDefault();    
     const cardItem = createNewCard(inputLink.value, inputPlace.value);    
     cardsSection.prepend(cardItem);
-    closePopup(addCard);
+    closePopup(popupCard);
     evt.target.reset();
 }
 
@@ -132,7 +132,7 @@ initialCards.forEach((card) => {
 })
 
 
-// вход в программу валидации
+// создаем экземпляры класса валидации для каждой из форм и запускаем программу
 
 const profileFormElement = document.querySelector(parameters.formSelector + parameters.formProfileName);
 const profileValidator = new FormValidator(parameters, profileFormElement);
