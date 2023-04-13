@@ -12,7 +12,11 @@ export default class Section {
     clear() {
       this._container.innerHTML = '';
     }
-  
+
+    prependItem(element) {
+       this._container.prepend(element);
+    }
+
     renderItems() {
     this.clear();
   

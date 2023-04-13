@@ -106,17 +106,17 @@ function showPopup(evt) {
 
 // функция создания экземпляра карты
 
-// function createNewCard({ link, name }) {
-//     const cardItem = new Card(link, name, '#cardTemplate', openPopup);    
-//     return cardItem.createCard();        
-// }
+function createNewCard(item) {
+    const cardItem = new Card(item, '#cardTemplate', openPopup);    
+    return cardItem.createCard();        
+}
 
 // функция добавления карты
 
 function addNewCard(evt) {
     evt.preventDefault();    
     const cardItem = createNewCard({link: inputLink.value, name: inputPlace.value});    
-    cardsSection.prepend(cardItem);
+    cardsSection.prependItem(cardItem);
     closePopup(popupCard);
     evt.target.reset();
 }
@@ -131,14 +131,29 @@ formNewCard.addEventListener('submit', addNewCard);
 const cardsSection = new Section({
     data: initialCards,
     renderer: (item) => {
-        const cardItem = new Card(item, '#cardTemplate', openPopup);;    
-        const cardElement = cardItem.createCard();      
-        cardsSection.setItem(cardElement);
+        const cardItem = createNewCard(item);    
+        // const cardElement = cardItem.createCard();      
+        cardsSection.setItem(cardItem);
     }
 }, '.photo-grid__places');
 
 cardsSection.renderItems();
-      
+
+
+
+// const cardsSection = new Section({
+//     data: initialCards,
+//     renderer: (item) => {
+//         const cardItem = new Card(item, '#cardTemplate', openPopup);;    
+//         const cardElement = cardItem.createCard();      
+//         cardsSection.setItem(cardElement);
+//     }
+// }, '.photo-grid__places');
+
+// cardsSection.renderItems();
+
+
+
     
 // const defaultCardList = new Section({ data: items, renderer: (item) => {
 //     const card = new DefaultCard(item, '.default-card');
