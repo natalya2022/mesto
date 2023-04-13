@@ -1,7 +1,7 @@
 import {popupImage, popupPhoto, popupPhotoName} from './index.js'
 
 export default class Card {
-    constructor(imageLink, name, template, openPopup) {
+    constructor({link: imageLink, name: name}, template, openPopup) {
         this._imageLink = imageLink;
         this._name = name;
         this._template = template;        

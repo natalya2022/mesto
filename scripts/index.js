@@ -1,5 +1,7 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import Section from './Section.js';
+// import Popup from './Popup.js';
 import {initialCards} from './cards.js';
 import {parameters} from './parameters.js';
 
@@ -78,7 +80,7 @@ function saveProfile(evt) {
 }
 
 
-const cardsSection = document.querySelector('.photo-grid__places');
+// const cardsSection = document.querySelector('.photo-grid__places');
 const buttonAddNewCard = document.querySelector('.profile__add');
 const popupCard = document.querySelector('.popup_type_place');
 const inputPlace = document.querySelector('.popup__text_field_place');
@@ -104,16 +106,16 @@ function showPopup(evt) {
 
 // функция создания экземпляра карты
 
-function createNewCard(link, name) {
-    const cardItem = new Card(link, name, '#cardTemplate', openPopup);    
-    return cardItem.createCard();        
-}
+// function createNewCard({ link, name }) {
+//     const cardItem = new Card(link, name, '#cardTemplate', openPopup);    
+//     return cardItem.createCard();        
+// }
 
 // функция добавления карты
 
 function addNewCard(evt) {
     evt.preventDefault();    
-    const cardItem = createNewCard(inputLink.value, inputPlace.value);    
+    const cardItem = createNewCard({link: inputLink.value, name: inputPlace.value});    
     cardsSection.prepend(cardItem);
     closePopup(popupCard);
     evt.target.reset();
@@ -124,12 +126,36 @@ function addNewCard(evt) {
 formNewCard.addEventListener('submit', addNewCard);
 
 
-//создание всех карт из массива с помощью класса Card
+//создание всех карт из массива 
 
-initialCards.forEach((card) => {    
-    const cardItem = createNewCard(card.link, card.name);    
-    cardsSection.append(cardItem);
-})
+const cardsSection = new Section({
+    data: initialCards,
+    renderer: (item) => {
+        const cardItem = new Card(item, '#cardTemplate', openPopup);;    
+        const cardElement = cardItem.createCard();      
+        cardsSection.setItem(cardElement);
+    }
+}, '.photo-grid__places');
+
+cardsSection.renderItems();
+      
+    
+// const defaultCardList = new Section({ data: items, renderer: (item) => {
+//     const card = new DefaultCard(item, '.default-card');
+  
+//     const cardElement = card.generateCard();
+  
+//     defaultCardList.setItem(cardElement);} }, cardListSelector);
+  
+//   defaultCardButton.addEventListener('click', () => {
+//     defaultCardButton.renderItems();
+//   });
+
+// initialCards.forEach((card) => {    
+//     const cardItem = createNewCard(card.link, card.name);   
+//     const cardItem = createNewCard(card); 
+//     cardsSection.append(cardItem);
+// })
 
 
 // создаем экземпляры класса валидации для каждой из форм и запускаем программу
