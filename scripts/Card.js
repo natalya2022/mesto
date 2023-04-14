@@ -1,22 +1,30 @@
-import {popupImage, popupPhoto, popupPhotoName} from './index.js'
+import {
+    popupImage,
+    // popupPhoto,
+    // popupPhotoName
+} from './index.js'
 
 export default class Card {
-    constructor({link: imageLink, name: name}, template, openPopup) {
+    constructor({
+        link: imageLink,
+        name: name
+    }, template, handleCardClick) {
         this._imageLink = imageLink;
         this._name = name;
-        this._template = template;        
-        this._openPopup = openPopup;                       
+        this._template = template;
+        // this._openPopup = openPopup;
+        this._handleCardClick = handleCardClick;
     }
 
     // метод работает с темплейтом, создает заготовку карточки
 
-    _getTemplate() {        
+    _getTemplate() {
         const newCard = document.createElement('li');
         newCard.classList.add('photo-grid__place');
-        newCard.append(document.querySelector(this._template).content.cloneNode(true));        
+        newCard.append(document.querySelector(this._template).content.cloneNode(true));
         return newCard;
     }
-    
+
     // метод создания экземпляра карточки
 
     createCard() {
@@ -32,43 +40,31 @@ export default class Card {
         this._setEventListeners();
         return this._element;
     }
- 
+
     // метод навешивает слушатели
 
     _setEventListeners() {
         this._likeCardButton.addEventListener('click', () => {
             this._toggleLike();
         });
-        this._deleteCardButton.addEventListener('click', () => {            
+        this._deleteCardButton.addEventListener('click', () => {
             this._deleteCard();
-        });    
+        });
         this._imageSelector.addEventListener('click', () => {
-            this._showPopupImage();
+            this._handleCardClick();
         });
     }
-    
+
     // метод ставит лайк
 
-    _toggleLike() {         
+    _toggleLike() {
         this._likeCardButton.classList.toggle('photo-grid__like_acltive');
     }
 
     // метод удаления карточки
 
-    _deleteCard() {        
+    _deleteCard() {
         this._element.remove();
-        this._element = null;        
-    }
-
-    // метод показа слайда
-
-    _showPopupImage() {                   
-        popupPhoto.setAttribute('src', this._imageLink);
-        popupPhoto.setAttribute('alt', this._name);
-        popupPhotoName.innerText = this._name;
-        this._openPopup(popupImage);
-    }
+        this._element = null;
+    }    
 }
-
-
-

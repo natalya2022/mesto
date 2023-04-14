@@ -1,7 +1,7 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import Section from './Section.js';
-// import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
 import {initialCards} from './cards.js';
 import {parameters} from './parameters.js';
 
@@ -17,53 +17,54 @@ buttonOpenPopupProfile.addEventListener('click', editProfile);
 
 //функция открытия попапа
 
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', closePopupEsc);    
-};
+// function openPopup(popup) {
+//     popup.classList.add('popup_opened');
+//     document.addEventListener('keydown', closePopupEsc);
+// };
 
 // функция закрытия попапов по клику на оверлей либо на кнопку закрытия
 
-const popups = document.querySelectorAll('.popup');
+// const popups = document.querySelectorAll('.popup');
 
-popups.forEach((popup) => {
-    popup.addEventListener('mousedown', (evt) => {
-        if (evt.target.classList.contains('popup_opened')) {
-            closePopup(popup);
-        }
-        if (evt.target.classList.contains('popup__close')) {
-            closePopup(popup);
-        }
-    })
-})
+// popups.forEach((popup) => {
+//     popup.addEventListener('mousedown', (evt) => {
+//         console.log(evt.target.classList);
+//         if (evt.target.classList.contains('popup_opened')) {
+//             closePopup(popup);
+//         }
+//         if (evt.target.classList.contains('popup__close')) {
+//             closePopup(popup);
+//         }
+//     })
+// })
 
 //функция закрытия попапа по кнопке Escape
 
-function closePopupEsc(evt) {
-    if (evt.key === 'Escape') {
-        const openedPopup = document.querySelector('.popup_opened');
-        closePopup(openedPopup);
-    }
-};
+// function closePopupEsc(evt) {
+//     if (evt.key === 'Escape') {
+//         const openedPopup = document.querySelector('.popup_opened');
+//         closePopup(openedPopup);
+//     }
+// };
 
 //функция закрытия попапа
 
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closePopupEsc);    
-}
+// function closePopup(popup) {
+//     popup.classList.remove('popup_opened');
+//     document.removeEventListener('keydown', closePopupEsc);
+// }
 
 //функция открытие профиля на редактирование
 
 function editProfile(evt) {
-    evt.preventDefault();        
+    evt.preventDefault();
     profileValidator.hideInputErrors();
 
     openPopup(popupProfile);
     inputName.value = profileName.textContent;
     inputJob.value = profileJob.textContent;
-    
-    profileValidator.setButtonState();    
+
+    profileValidator.setButtonState();
 }
 
 //обработка формы профиля
@@ -100,22 +101,32 @@ buttonAddNewCard.addEventListener('click', showPopup);
 function showPopup(evt) {
     evt.preventDefault();
     placeValidator.hideInputErrors();
-    openPopup(popupCard);   
+    openPopup(popupCard);
     placeValidator.setButtonState();
 }
+
+
+// const popupWithImageItem = new PopupWithImage (item, '.popup_type_image');
+
 
 // функция создания экземпляра карты
 
 function createNewCard(item) {
-    const cardItem = new Card(item, '#cardTemplate', openPopup);    
-    return cardItem.createCard();        
+    const popupWithImageItem = new PopupWithImage (item, '.popup_type_image');
+    // console.log(popupWithImageItem);
+    const cardItem = new Card(item, '#cardTemplate', popupWithImageItem.open);
+    // console.log(cardItem);
+    return cardItem.createCard();
 }
 
 // функция добавления карты
 
 function addNewCard(evt) {
-    evt.preventDefault();    
-    const cardItem = createNewCard({link: inputLink.value, name: inputPlace.value});    
+    evt.preventDefault();
+    const cardItem = createNewCard({
+        link: inputLink.value,
+        name: inputPlace.value
+    });
     cardsSection.prependItem(cardItem);
     closePopup(popupCard);
     evt.target.reset();
@@ -131,46 +142,13 @@ formNewCard.addEventListener('submit', addNewCard);
 const cardsSection = new Section({
     data: initialCards,
     renderer: (item) => {
-        const cardItem = createNewCard(item);    
+        const cardItem = createNewCard(item);
         // const cardElement = cardItem.createCard();      
         cardsSection.setItem(cardItem);
     }
 }, '.photo-grid__places');
 
 cardsSection.renderItems();
-
-
-
-// const cardsSection = new Section({
-//     data: initialCards,
-//     renderer: (item) => {
-//         const cardItem = new Card(item, '#cardTemplate', openPopup);;    
-//         const cardElement = cardItem.createCard();      
-//         cardsSection.setItem(cardElement);
-//     }
-// }, '.photo-grid__places');
-
-// cardsSection.renderItems();
-
-
-
-    
-// const defaultCardList = new Section({ data: items, renderer: (item) => {
-//     const card = new DefaultCard(item, '.default-card');
-  
-//     const cardElement = card.generateCard();
-  
-//     defaultCardList.setItem(cardElement);} }, cardListSelector);
-  
-//   defaultCardButton.addEventListener('click', () => {
-//     defaultCardButton.renderItems();
-//   });
-
-// initialCards.forEach((card) => {    
-//     const cardItem = createNewCard(card.link, card.name);   
-//     const cardItem = createNewCard(card); 
-//     cardsSection.append(cardItem);
-// })
 
 
 // создаем экземпляры класса валидации для каждой из форм и запускаем программу
@@ -182,4 +160,3 @@ profileValidator.enableValidation();
 const placeFormElement = document.querySelector(parameters.formSelector + parameters.formPlaceName);
 const placeValidator = new FormValidator(parameters, placeFormElement);
 placeValidator.enableValidation();
-
