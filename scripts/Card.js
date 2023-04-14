@@ -1,14 +1,5 @@
-import {
-    popupImage,
-    // popupPhoto,
-    // popupPhotoName
-} from './index.js'
-
 export default class Card {
-    constructor({
-        link: imageLink,
-        name: name
-    }, template, handleCardClick) {
+    constructor({link: imageLink, name: name}, template, handleCardClick) {
         this._imageLink = imageLink;
         this._name = name;
         this._template = template;

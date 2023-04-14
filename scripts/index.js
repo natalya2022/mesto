@@ -105,16 +105,17 @@ function showPopup(evt) {
     placeValidator.setButtonState();
 }
 
+// создание экземпляра класса PopupWithImage
 
-// const popupWithImageItem = new PopupWithImage (item, '.popup_type_image');
+const popupWithImageItem = new PopupWithImage ('.popup_type_image');
 
 
 // функция создания экземпляра карты
 
 function createNewCard(item) {
-    const popupWithImageItem = new PopupWithImage (item, '.popup_type_image');
+    // const popupWithImageItem = new PopupWithImage (item, '.popup_type_image');
     // console.log(popupWithImageItem);
-    const cardItem = new Card(item, '#cardTemplate', popupWithImageItem.open);
+    const cardItem = new Card(item, '#cardTemplate', () => {popupWithImageItem.open(item)} );
     // console.log(cardItem);
     return cardItem.createCard();
 }
