@@ -34,9 +34,9 @@ function editProfile(evt) {
     profileValidator.hideInputErrors();
 
     popupWithFormProfile.open();
-    const tempValue = profileUserInfo.getUserInfo();
-    inputName.value = tempValue.name;
-    inputJob.value = tempValue.job;
+    const tempValues = profileUserInfo.getUserInfo();
+    inputName.value = tempValues.name;
+    inputJob.value = tempValues.job;
 
     profileValidator.setButtonState();
 };
@@ -60,8 +60,7 @@ buttonAddNewCard.addEventListener('click', showPopup);
 
 function showPopup(evt) {
     evt.preventDefault();
-    placeValidator.hideInputErrors();
-    // openPopup(popupCard);
+    placeValidator.hideInputErrors();   
     popupWithFormPlace.open();
     placeValidator.setButtonState();
 };
@@ -97,8 +96,7 @@ const popupWithFormPlace = new PopupWithForm ('.popup_type_place', (evt) => {
 const cardsSection = new Section({
     data: initialCards,
     renderer: (item) => {
-        const cardItem = createNewCard(item);
-        // const cardElement = cardItem.createCard();      
+        const cardItem = createNewCard(item);              
         cardsSection.setItem(cardItem);
     }
 }, '.photo-grid__places');
