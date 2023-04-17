@@ -3,30 +3,34 @@ import Popup from './Popup.js';
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, submitFormHandler) {
     super(popupSelector);
-    this._formNewCard = document.forms['form-add'];
-    console.log(this._formNewCard);
+    // console.log(this._popup)
+    this._form = this._popup.querySelector('.popup__edit');
+    this._inputFirstLine = this._form.querySelector('.popup__text_position_first-line');
+    this._inputSecondLine = this._form.querySelector('.popup__text_position_second-line');
+    // console.log(this._inputFirstLine, this._inputSecondLine);       
     this._submitFormHandler = submitFormHandler;                  
   }
   
-//   _getInputValues () {
-//     this._values = {};
-//     this._inputList.forEach(input => {
-//         this._values[input.getAttribute('name')] = input.value;
-//         console.log(input.value);
-//     })
-//     return this._values;
-// }
+  _getInputValues = () => {       
+    this._values = {first: this._inputFirstLine.value, second: this._inputSecondLine.value};
+    console.log(this._values);
+    return this._values;
+}
+
+  getInputValues = () => {
+    this._getInputValues ();
+  }
+
 
   close () {
     console.log('close', this);    
     super.close();
-    this._formNewCard.reset();
+    this._form.reset();
 }
 
   setEventListeners () {
     super.setEventListeners();
-    this._formNewCard.addEventListener('submit', this._submitFormHandler);
-    console.log(this._formNewCard);
+    this._form.addEventListener('submit', this._submitFormHandler);    
   }  
 }
 
@@ -34,3 +38,21 @@ export default class PopupWithForm extends Popup {
 //обработка формы добавления карты
 
 // formNewCard.addEventListener('submit', addNewCard);
+
+// const popupWithFormPlace = new PopupWithForm ('.popup_type_place', (evt) => {
+//   evt.preventDefault();
+//   const cardItem = createNewCard({
+//       link: inputLink.value,
+//       name: inputPlace.value
+//   });
+//   cardsSection.prependItem(cardItem);
+//   popupWithFormPlace.close();
+//   evt.target.reset();
+// });
+
+// const popupWithFormProfile = new PopupWithForm ('.popup_type_profile', (evt) => {
+//   evt.preventDefault();
+//   profileName.textContent = inputName.value;
+//   profileJob.textContent = inputJob.value;
+//   popupWithFormProfile.close();
+// });
