@@ -10,7 +10,7 @@ export default class PopupWithImage extends Popup {
     popupPhoto.setAttribute('src', imageLink);
     popupPhoto.setAttribute('alt', name);
     popupPhotoName.innerText = name;
-    console.log(this);
+    // console.log(this);
     super.open();    
     };
 }

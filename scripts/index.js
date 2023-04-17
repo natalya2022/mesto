@@ -2,6 +2,7 @@ import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import Section from './Section.js';
 import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
 import {initialCards} from './cards.js';
 import {parameters} from './parameters.js';
 
@@ -101,9 +102,15 @@ buttonAddNewCard.addEventListener('click', showPopup);
 function showPopup(evt) {
     evt.preventDefault();
     placeValidator.hideInputErrors();
-    openPopup(popupCard);
+    // openPopup(popupCard);
+    popupWithFormPlace.open();
     placeValidator.setButtonState();
 }
+
+
+
+
+
 
 // создание экземпляра класса PopupWithImage
 
@@ -112,9 +119,7 @@ const popupWithImageItem = new PopupWithImage ('.popup_type_image');
 
 // функция создания экземпляра карты
 
-function createNewCard(item) {
-    // const popupWithImageItem = new PopupWithImage (item, '.popup_type_image');
-    // console.log(popupWithImageItem);
+function createNewCard(item) {    
     const cardItem = new Card(item, '#cardTemplate', () => {popupWithImageItem.open(item)} );
     // console.log(cardItem);
     return cardItem.createCard();
@@ -122,23 +127,36 @@ function createNewCard(item) {
 
 // функция добавления карты
 
-function addNewCard(evt) {
+// function addNewCard(evt) {
+//     evt.preventDefault();
+//     const cardItem = createNewCard({
+//         link: inputLink.value,
+//         name: inputPlace.value
+//     });
+//     cardsSection.prependItem(cardItem);
+//     popupWithFormPlace.close();
+//     evt.target.reset();
+// }
+
+//обработка формы добавления карты
+
+// formNewCard.addEventListener('submit', addNewCard);
+
+// создание экземпляра класса PopupWithForm для добавления карточки
+
+const popupWithFormPlace = new PopupWithForm ('.popup_type_place', (evt) => {
     evt.preventDefault();
     const cardItem = createNewCard({
         link: inputLink.value,
         name: inputPlace.value
     });
     cardsSection.prependItem(cardItem);
-    closePopup(popupCard);
+    popupWithFormPlace.close();
     evt.target.reset();
-}
-
-//обработка формы добавления карты
-
-formNewCard.addEventListener('submit', addNewCard);
+});
 
 
-//создание всех карт из массива 
+//создание всех карт из массива (создаем экземплр класса Section)
 
 const cardsSection = new Section({
     data: initialCards,
