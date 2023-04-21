@@ -1,23 +1,17 @@
 import './index.css';
 
-import Card from '../scripts/Card.js';
-import FormValidator from '../scripts/FormValidator.js';
-import Section from '../scripts/Section.js';
-import PopupWithImage from '../scripts/PopupWithImage.js';
-import PopupWithForm from '../scripts/PopupWithForm.js';
-import UserInfo from '../scripts/UserInfo.js';
-import {initialCards} from '../scripts/cards.js';
-import {parameters} from '../scripts/parameters.js';
-
-
-
-const buttonOpenPopupProfile = document.querySelector('.profile__edit');
-const inputName = document.querySelector('.popup__text_field_name');
-const inputJob = document.querySelector('.popup__text_field_occupation');
-const buttonAddNewCard = document.querySelector('.profile__add');
-// const popupImage = document.querySelector('.popup_type_image');
-// const popupPhoto = popupImage.querySelector('.popup__photo');
-// const popupPhotoName = popupImage.querySelector('.popup__place-name');
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import {initialCards} from '../data/cards.js';
+import {parameters} from '../data/parameters.js';
+import {buttonOpenPopupProfile} from '../data/constants.js';
+import {inputName} from '../data/constants.js';
+import {inputJob} from '../data/constants.js';
+import {buttonAddNewCard} from '../data/constants.js';
 
 
 // установка слушателя на кнопку редактирования профиля
@@ -47,17 +41,11 @@ function editProfile(evt) {
 
 // создание экземпляра класса PopupWithForm для редактирования профиля
 
-// const popupWithFormProfile = new PopupWithForm ('.popup_type_profile', (evt) => {
-//     evt.preventDefault();   
-//     profileUserInfo.setUserInfo({'name': inputName.value, 'job': inputJob.value});        
-//     popupWithFormProfile.close();    
-// });
-
 const popupWithFormProfile = new PopupWithForm ('.popup_type_profile', submitEditProfileForm); 
 popupWithFormProfile.setEventListeners();
 
-function submitEditProfileForm (item) {
-    profileUserInfo.setUserInfo({'name': inputName.value, 'job': inputJob.value});        
+function submitEditProfileForm (item) {    
+    profileUserInfo.setUserInfo({'name': item.name, 'job': item.link});        
     popupWithFormProfile.close(); 
 }
 
@@ -80,28 +68,18 @@ function showPopup(evt) {
 // создание экземпляра класса PopupWithImage
 
 const popupWithImageItem = new PopupWithImage ('.popup_type_image');
-//popupWithImageItem.setEventListeners(popupWithImageItem);
 popupWithImageItem.setEventListeners();
 
 
 // функция создания экземпляра карты
 
 function createNewCard(item) {    
-    const cardItem = new Card(item, '#cardTemplate', () => {popupWithImageItem.open(item)} );
-    // console.log(cardItem);
+    const cardItem = new Card(item, '#cardTemplate', () => {popupWithImageItem.open(item)} );    
     return cardItem.createCard();
 };
 
 
 // создание экземпляра класса PopupWithForm для добавления карты
-
-// const popupWithFormPlace = new PopupWithForm ('.popup_type_place', () => {
-//     evt.preventDefault();    
-//     const cardItem = createNewCard(popupWithFormPlace.getInputValues());        
-//     cardsSection.prependItem(cardItem);    
-//     popupWithFormPlace.close();
-//     popupWithFormPlace.reset();
-// });
 
 const popupWithFormPlace = new PopupWithForm ('.popup_type_place', submitNewCardForm);
 popupWithFormPlace.setEventListeners();
@@ -111,6 +89,7 @@ function submitNewCardForm(item) {
     cardsSection.prependItem(cardItem);    
     popupWithFormPlace.close();
 }
+
 
 //создание всех карт из массива (создание экземпляра класса Section)
 
