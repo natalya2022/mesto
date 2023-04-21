@@ -15,9 +15,9 @@ const buttonOpenPopupProfile = document.querySelector('.profile__edit');
 const inputName = document.querySelector('.popup__text_field_name');
 const inputJob = document.querySelector('.popup__text_field_occupation');
 const buttonAddNewCard = document.querySelector('.profile__add');
-export const popupImage = document.querySelector('.popup_type_image');
-export const popupPhoto = popupImage.querySelector('.popup__photo');
-export const popupPhotoName = popupImage.querySelector('.popup__place-name');
+// const popupImage = document.querySelector('.popup_type_image');
+// const popupPhoto = popupImage.querySelector('.popup__photo');
+// const popupPhotoName = popupImage.querySelector('.popup__place-name');
 
 
 // установка слушателя на кнопку редактирования профиля
@@ -30,7 +30,7 @@ buttonOpenPopupProfile.addEventListener('click', editProfile);
 const profileUserInfo = new UserInfo ({profileName: '.profile__title', profileJob: '.profile__occupation'});
 
 
-//функция открытие профиля на редактирование
+//функция открытия профиля на редактирование
 
 function editProfile(evt) {
     evt.preventDefault();
@@ -49,10 +49,10 @@ function editProfile(evt) {
 
 const popupWithFormProfile = new PopupWithForm ('.popup_type_profile', (evt) => {
     evt.preventDefault();   
-    profileUserInfo.setUserInfo({'name': inputName.value, 'job': inputJob.value});
-    popupWithFormProfile.close();
+    profileUserInfo.setUserInfo({'name': inputName.value, 'job': inputJob.value});        
+    popupWithFormProfile.close();    
 });
-
+popupWithFormProfile.setEventListeners();
 
 // слушатель на кнопку добавления карты
 
@@ -72,6 +72,8 @@ function showPopup(evt) {
 // создание экземпляра класса PopupWithImage
 
 const popupWithImageItem = new PopupWithImage ('.popup_type_image');
+//popupWithImageItem.setEventListeners(popupWithImageItem);
+popupWithImageItem.setEventListeners();
 
 
 // функция создания экземпляра карты
@@ -88,10 +90,11 @@ function createNewCard(item) {
 const popupWithFormPlace = new PopupWithForm ('.popup_type_place', (evt) => {
     evt.preventDefault();    
     const cardItem = createNewCard(popupWithFormPlace.getInputValues());        
-    cardsSection.prependItem(cardItem);
+    cardsSection.prependItem(cardItem);    
     popupWithFormPlace.close();
-    evt.target.reset();
+    // popupWithFormPlace.reset();
 });
+popupWithFormPlace.setEventListeners();
 
 
 //создание всех карт из массива (создание экземпляра класса Section)

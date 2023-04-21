@@ -4,9 +4,12 @@ export default class PopupWithForm extends Popup {
   constructor(popupSelector, submitFormHandler) {
     super(popupSelector);    
     this._form = this._popup.querySelector('.popup__edit');
+    // console.log (this._form);
     this._inputFirstLine = this._form.querySelector('.popup__text_position_first-line');
     this._inputSecondLine = this._form.querySelector('.popup__text_position_second-line');           
-    this._submitFormHandler = submitFormHandler;                  
+    this._submitFormHandler = submitFormHandler;
+    // console.log (this._submitFormHandler);
+    // console.log (this);                    
   }
   
   _getInputValues = () => {       
@@ -16,13 +19,30 @@ export default class PopupWithForm extends Popup {
   getInputValues = () => this._getInputValues();
   
 
-  close() {        
+  close = () => {        
     super.close();
-    this._form.reset();
+    this._form.reset();      
   }
 
-  setEventListeners() {
+  // reset = () => { 
+  //   this._form.reset();
+  // }
+
+  setEventListeners = () => {
     super.setEventListeners();
-    this._form.addEventListener('submit', this._submitFormHandler);    
+    // console.log (this);
+    this._form.addEventListener('submit', this._submitFormHandler.bind(this));
+    // console.log (this._submitFormHandler);    
   }  
 }
+
+
+// setEventListeners() {
+//   this._popupElement.addEventListener('submit', () => {
+//     const inputValues = this._getInputValues();
+//     this._handleFormSubmit(inputValues);
+//     this.close();
+//   });
+
+//   super.setEventListeners();
+// }

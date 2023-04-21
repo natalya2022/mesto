@@ -9,11 +9,16 @@ export default class Card {
     // метод работает с темплейтом, создает заготовку карточки
 
     _getTemplate() {
-        const newCard = document.createElement('li');
-        newCard.classList.add('photo-grid__place');
-        newCard.append(document.querySelector(this._template).content.cloneNode(true));
+        // const newCard = document.createElement('li');
+        // newCard.classList.add('photo-grid__place');
+        // newCard.append(document.querySelector(this._template).content.cloneNode(true));
+        const newCard = document.querySelector(this._template).content.querySelector('.photo-grid__place').cloneNode(true);
+        // console.log(newCard);
         return newCard;
     }
+
+    // document.querySelector(this._template).content.querySelector('.photo-grid__place').cloneNode(true) 
+
 
     // метод создания экземпляра карточки
 
