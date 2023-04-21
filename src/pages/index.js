@@ -8,10 +8,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import {initialCards} from '../data/cards.js';
 import {parameters} from '../data/parameters.js';
-import {buttonOpenPopupProfile} from '../data/constants.js';
-import {inputName} from '../data/constants.js';
-import {inputJob} from '../data/constants.js';
-import {buttonAddNewCard} from '../data/constants.js';
+import {buttonOpenPopupProfile, inputName, inputJob, buttonAddNewCard} from '../data/constants.js';
 
 
 // установка слушателя на кнопку редактирования профиля
