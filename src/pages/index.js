@@ -47,12 +47,20 @@ function editProfile(evt) {
 
 // создание экземпляра класса PopupWithForm для редактирования профиля
 
-const popupWithFormProfile = new PopupWithForm ('.popup_type_profile', (evt) => {
-    evt.preventDefault();   
-    profileUserInfo.setUserInfo({'name': inputName.value, 'job': inputJob.value});        
-    popupWithFormProfile.close();    
-});
+// const popupWithFormProfile = new PopupWithForm ('.popup_type_profile', (evt) => {
+//     evt.preventDefault();   
+//     profileUserInfo.setUserInfo({'name': inputName.value, 'job': inputJob.value});        
+//     popupWithFormProfile.close();    
+// });
+
+const popupWithFormProfile = new PopupWithForm ('.popup_type_profile', submitEditProfileForm); 
 popupWithFormProfile.setEventListeners();
+
+function submitEditProfileForm (item) {
+    profileUserInfo.setUserInfo({'name': inputName.value, 'job': inputJob.value});        
+    popupWithFormProfile.close(); 
+}
+
 
 // слушатель на кнопку добавления карты
 
@@ -87,15 +95,22 @@ function createNewCard(item) {
 
 // создание экземпляра класса PopupWithForm для добавления карты
 
-const popupWithFormPlace = new PopupWithForm ('.popup_type_place', (evt) => {
-    evt.preventDefault();    
-    const cardItem = createNewCard(popupWithFormPlace.getInputValues());        
-    cardsSection.prependItem(cardItem);    
-    popupWithFormPlace.close();
-    // popupWithFormPlace.reset();
-});
+// const popupWithFormPlace = new PopupWithForm ('.popup_type_place', () => {
+//     evt.preventDefault();    
+//     const cardItem = createNewCard(popupWithFormPlace.getInputValues());        
+//     cardsSection.prependItem(cardItem);    
+//     popupWithFormPlace.close();
+//     popupWithFormPlace.reset();
+// });
+
+const popupWithFormPlace = new PopupWithForm ('.popup_type_place', submitNewCardForm);
 popupWithFormPlace.setEventListeners();
 
+function submitNewCardForm(item) {
+    const cardItem = createNewCard(item);        
+    cardsSection.prependItem(cardItem);    
+    popupWithFormPlace.close();
+}
 
 //создание всех карт из массива (создание экземпляра класса Section)
 

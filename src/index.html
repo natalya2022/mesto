@@ -40,9 +40,9 @@
         <button class="popup__close" type="button" aria-label="Закрыть"></button>
         <form class="popup__edit" name="form-edit" novalidate> 
           <div class="popup__fill">
-            <input class="popup__input popup__text popup__text_position_first-line popup__text_field_name" type="text" placeholder="Имя" id="form-name" required minlength="2" maxlength="40">
+            <input class="popup__input popup__text popup__text_position_first-line popup__text_field_name" type="text" placeholder="Имя" id="form-name" name="name" required minlength="2" maxlength="40">
             <span class="form-name-error"></span>
-            <input class="popup__input popup__text popup__text_position_second-line popup__text_field_occupation" type="text" placeholder="Занятие" id="form-job" required minlength="2" maxlength="200">
+            <input class="popup__input popup__text popup__text_position_second-line popup__text_field_occupation" type="text" placeholder="Занятие" id="form-job" name="link" required minlength="2" maxlength="200">
             <span class="form-job-error"></span>
           </div>
           <button class="popup__save" type="submit">Сохранить</button>
@@ -55,9 +55,9 @@
         <button class="popup__close" type="button" aria-label="Закрыть"></button>
         <form class="popup__edit" name="form-add" novalidate> 
           <div class="popup__fill">
-            <input class="popup__input popup__text popup__text_position_first-line popup__text_field_place" type="text" placeholder="Название" id="form-place" required minlength="2" maxlength="30">
+            <input class="popup__input popup__text popup__text_position_first-line popup__text_field_place" type="text" placeholder="Название" id="form-place" name="name" required minlength="2" maxlength="30">
             <span class="form-place-error"></span>
-            <input class="popup__input popup__text popup__text_position_second-line popup__text_field_url" type="url" placeholder="Ссылка на картинку" id="form-url" required>
+            <input class="popup__input popup__text popup__text_position_second-line popup__text_field_url" type="url" placeholder="Ссылка на картинку" id="form-url" name="link" required>
             <span class="form-url-error"></span>
           </div>
           <button class="popup__save" type="submit">Создать</button>
