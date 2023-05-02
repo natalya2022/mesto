@@ -1,8 +1,9 @@
 export default class Api {
   constructor(apiParams) {
-    console.log(apiParams);
+    // console.log(apiParams);
     this._baseUrl = apiParams.baseUrl;
     this._headers = apiParams.headers;
+    this._userId = 0;
   }
 
   _checkRequest(res) {
@@ -50,8 +51,19 @@ export default class Api {
     .then(res => this._checkRequest(res));    
   }
 
-  
-  editUserProfile({name, about}){
+
+  setUserId(userId) {
+    this._userId = userId;    
+  }
+
+
+  getUserId() {
+    return this._userId;
+  }
+
+
+  editUserProfile({name, about}) {
+    console.log(name, about);
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
@@ -65,10 +77,11 @@ export default class Api {
 
 
   editUserAvatar({avatar}) {
-    return fetch(`${this._baseUrl}/users/me`, {
+    console.log(avatar);
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({
+      body: JSON.stringify({        
         avatar: avatar
         })
       })

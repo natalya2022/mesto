@@ -1,28 +1,25 @@
 export default class Card {
-    constructor({ name: name, link: imageLink}, template, handleCardClick) {
-        this._imageLink = imageLink;
+    constructor({name, link, _id, owner}, template, handleCardClick, userId) {
+        this._imageLink = link;
         this._name = name;
         this._template = template;        
         this._handleCardClick = handleCardClick;
+        this._cardId = _id;
+        this._userId = userId;
+        this._owner = owner._id;        
     }
 
     // метод работает с темплейтом, создает заготовку карточки
 
-    _getTemplate() {
-        // const newCard = document.createElement('li');
-        // newCard.classList.add('photo-grid__place');
-        // newCard.append(document.querySelector(this._template).content.cloneNode(true));
-        const newCard = document.querySelector(this._template).content.querySelector('.photo-grid__place').cloneNode(true);
-        // console.log(newCard);
+    _getTemplate() {       
+        const newCard = document.querySelector(this._template).content.querySelector('.photo-grid__place').cloneNode(true);        
         return newCard;
     }
 
-    // document.querySelector(this._template).content.querySelector('.photo-grid__place').cloneNode(true) 
-
-
+    
     // метод создания экземпляра карточки
 
-    createCard() {
+    createCard() {        
         this._element = this._getTemplate();
         this._imageSelector = this._element.querySelector('.photo-grid__picture');
         this._titleSelector = this._element.querySelector('.photo-grid__title');
@@ -30,8 +27,8 @@ export default class Card {
         this._imageSelector.setAttribute('alt', this._name);
         this._titleSelector.textContent = this._name;
         this._likeCardButton = this._element.querySelector('.photo-grid__like');
-        this._deleteCardButton = this._element.querySelector('.photo-grid__delete');
-
+        this._deleteCardButton = this._element.querySelector('.photo-grid__delete');        
+        this._owner !== this._userId && this._deleteCardButton.classList.remove('photo-grid__owner');
         this._setEventListeners();
         return this._element;
     }
@@ -42,7 +39,7 @@ export default class Card {
         this._likeCardButton.addEventListener('click', () => {
             this._toggleLike();
         });
-        this._deleteCardButton.addEventListener('click', () => {
+        this._owner === this._userId && this._deleteCardButton.addEventListener('click', () => {
             this._deleteCard();
         });
         this._imageSelector.addEventListener('click', () => {

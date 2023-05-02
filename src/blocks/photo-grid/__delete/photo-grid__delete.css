@@ -12,6 +12,7 @@
     top: 20px;
     right: 20px;
     transition: opacity 0.5s;
+    display: none;
 }
 
 .photo-grid__delete:hover {

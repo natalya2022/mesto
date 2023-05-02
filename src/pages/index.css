@@ -27,6 +27,7 @@
 @import url("../blocks/photo-grid/__like/photo-grid__like.css");
 @import url("../blocks/photo-grid/__like/_acltive/photo-grid__like_acltive.css");
 @import url("../blocks/photo-grid/__delete/photo-grid__delete.css");
+@import url("../blocks/photo-grid/__owner/photo-grid__owner.css");
 
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");

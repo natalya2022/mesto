@@ -6,7 +6,6 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import {initialCards} from '../data/cards.js';
 import {parameters} from '../data/parameters.js';
 import {buttonOpenPopupProfile, inputName, inputAbout, buttonAddNewCard, buttonOpenPopupAvatar} from '../data/constants.js';
 import { apiParams } from '../data/apiParams.js';
@@ -17,34 +16,11 @@ import Api from '../components/Api.js';
 
 const api = new Api(apiParams);
 
-// запрос на сервер по инициации карт и обработка результата
-
-api.getInitialCards()
-  .then((result) => {
-    console.log(result);    
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  }); 
-
-
-// api.addNewCard({name: 'черепаха', link: 'https://images.unsplash.com/photo-1682314170732-2de75372c338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY4MzAxMTI4OA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080'})
-//     .then((result) => {
-//         console.log(result);
-//     })
-//     .catch((err) => {
-//         console.log(err); // выведем ошибку в консоль
-//     }); 
-
-// const CardId = '6450dd093bb4f20145940076';
-// api.deleteCard(CardId);   
-
-
-
 
 // установка слушателя на кнопку редактирования профиля
 
 buttonOpenPopupProfile.addEventListener('click', editProfile);
+
 
 // установка слушателя на иконку аватара
 
@@ -60,12 +36,15 @@ function editAvatar(evt) {
     profileValidator.setButtonState();
 };
 
+
 // создание экземпляра класса PopupWithForm для редактирования аватара
 
 const popupWithFormAvatar = new PopupWithForm ('.popup_type_avatar', submitEditAvatarForm); 
 popupWithFormAvatar.setEventListeners();
 
-function submitEditAvatarForm (item) {       
+function submitEditAvatarForm (item) {
+    console.log(item);
+    api.editUserAvatar(item);       
     profileUserInfo.setUserInfo(item);        
     popupWithFormAvatar.close(); 
 }
@@ -75,20 +54,19 @@ function submitEditAvatarForm (item) {
 
 const profileUserInfo = new UserInfo ({profileName: '.profile__title', profileAbout: '.profile__occupation', profileAvatar: '.profile__avatar'});
 
-// profileUserInfo.setUserInfo(userData);
 
 // загрузка данных пользователя с сервера
 
 api.getUserInfo()
   .then((result) => {
-    console.log(result);
-    profileUserInfo.setUserInfo(result);
+    // console.log(result);
+    profileUserInfo.setUserInfo(result);    
+    api.setUserId(result._id);    
     })
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
   });
 
-// api.editUserProfile();
 
 //функция открытия профиля на редактирование
 
@@ -141,7 +119,7 @@ popupWithImageItem.setEventListeners();
 // функция создания экземпляра карты
 
 function createNewCard(item) {    
-    const cardItem = new Card(item, '#cardTemplate', () => {popupWithImageItem.open(item)} );    
+    const cardItem = new Card(item, '#cardTemplate', () => {popupWithImageItem.open(item)}, api.getUserId());    
     return cardItem.createCard();
 };
 
@@ -151,24 +129,44 @@ function createNewCard(item) {
 const popupWithFormPlace = new PopupWithForm ('.popup_type_place', submitNewCardForm);
 popupWithFormPlace.setEventListeners();
 
+
 function submitNewCardForm(item) {
-    const cardItem = createNewCard(item);        
-    cardsSection.prependItem(cardItem);    
-    popupWithFormPlace.close();
+    console.log(item);
+    api.addNewCard(item)
+        .then((result) => {
+            console.log(result);
+            const cardItem = createNewCard(result);    
+            cardsSection.prependItem(cardItem); 
+        })
+        .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        })
+        .finally (popupWithFormPlace.close());
 }
 
 
-//создание всех карт из массива (создание экземпляра класса Section)
+let cardsSection;
 
-const cardsSection = new Section({
-    data: initialCards,
-    renderer: (item) => {
-        const cardItem = createNewCard(item);              
-        cardsSection.setItem(cardItem);
-    }
-}, '.photo-grid__places');
+api.getInitialCards()
+  .then((result) => {
+    
+    cardsSection = new Section({
+        data: result,
+        renderer: (item) => {            
+            const cardItem = createNewCard(item);              
+            cardsSection.setItem(cardItem);
+        }
+    }, '.photo-grid__places');
+    
+    cardsSection.renderItems();    
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  }); 
 
-cardsSection.renderItems();
+
+
+  
 
 
 // создание экземпляров класса валидации для каждой из форм и запуск программы
