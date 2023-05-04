@@ -1,12 +1,14 @@
 export default class Card {
-    constructor({name, link, _id, owner}, template, handleCardClick, userId) {
-        this._imageLink = link;
-        this._name = name;
+    constructor(item, template, handleCardClick, userId, handleDeleteCardClick) {
+        this._card = item;
+        this._imageLink = item.link;
+        this._name = item.name;
         this._template = template;        
         this._handleCardClick = handleCardClick;
-        this._cardId = _id;
+        this._cardId = item._id;
         this._userId = userId;
-        this._owner = owner._id;        
+        this._owner = item.owner._id;
+        this._handleDeleteCardClick = handleDeleteCardClick;        
     }
 
     // метод работает с темплейтом, создает заготовку карточки
@@ -40,7 +42,8 @@ export default class Card {
             this._toggleLike();
         });
         this._owner === this._userId && this._deleteCardButton.addEventListener('click', () => {
-            this._deleteCard();
+            this._handleDeleteCardClick(this._item);
+            // this._deleteCard();
         });
         this._imageSelector.addEventListener('click', () => {
             this._handleCardClick();

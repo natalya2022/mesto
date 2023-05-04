@@ -7,9 +7,10 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import {parameters} from '../data/parameters.js';
-import {buttonOpenPopupProfile, inputName, inputAbout, buttonAddNewCard, buttonOpenPopupAvatar} from '../data/constants.js';
+import {buttonOpenPopupProfile, inputName, inputAbout, buttonAddNewCard, buttonOpenPopupAvatar, buttonDeleteCard} from '../data/constants.js';
 import { apiParams } from '../data/apiParams.js';
 import Api from '../components/Api.js';
+import PopupWithDelete from '../components/PopupWithDelete';
 
 
 // создание класса Api
@@ -119,7 +120,7 @@ popupWithImageItem.setEventListeners();
 // функция создания экземпляра карты
 
 function createNewCard(item) {    
-    const cardItem = new Card(item, '#cardTemplate', () => {popupWithImageItem.open(item)}, api.getUserId());    
+    const cardItem = new Card(item, '#cardTemplate', () => {popupWithImageItem.open(item)}, api.getUserId(), () => {PopupWithDeleteCard.confirmDel(item)});    
     return cardItem.createCard();
 };
 
@@ -166,7 +167,28 @@ api.getInitialCards()
 
 
 
-  
+// создание экземпляра класса удаления карты
+
+const PopupWithDeleteCard = new PopupWithDelete('.popup_type_delete', submitDeleteCardForm);
+console.log(PopupWithDeleteCard);
+PopupWithDeleteCard.setEventListeners();
+
+
+function submitDeleteCardForm(item, cardId) {
+    console.log(item);
+    api.deleteCard(cardId).then((result) => {
+        console.log(result);         
+    })
+    .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+    })
+    .finally (PopupWithDeleteCard.close());
+}
+
+
+
+
+
 
 
 // создание экземпляров класса валидации для каждой из форм и запуск программы
