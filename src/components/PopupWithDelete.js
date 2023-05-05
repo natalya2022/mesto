@@ -36,8 +36,7 @@ export default class PopupWithDelete extends Popup {
 confirmDel (item) {
   super.open();
   this._item = item;
-  this._id = item._id;
-  console.log(this);
+  this._id = item._id;  
 }
 
 

@@ -1,14 +1,19 @@
 export default class Card {
-    constructor(item, template, handleCardClick, userId, handleDeleteCardClick) {
+    constructor(item, template, handleCardClick, userId, handleDeleteCardClick, handleLikeClick) {
         this._card = item;
         this._imageLink = item.link;
         this._name = item.name;
         this._template = template;        
         this._handleCardClick = handleCardClick;
-        this._cardId = item._id;
+        this.cardId = item._id;
         this._userId = userId;
         this._owner = item.owner._id;
-        this._handleDeleteCardClick = handleDeleteCardClick;        
+        this._handleDeleteCardClick = handleDeleteCardClick; 
+        this._likeCounter = item.likes.length;
+        this._likes = item.likes;
+        this._handleLikeClick = handleLikeClick;
+        //console.log(this, item.likes.length, item.likes); 
+        //console.log(this);      
     }
 
     // метод работает с темплейтом, создает заготовку карточки
@@ -31,6 +36,8 @@ export default class Card {
         this._likeCardButton = this._element.querySelector('.photo-grid__like');
         this._deleteCardButton = this._element.querySelector('.photo-grid__delete');        
         this._owner !== this._userId && this._deleteCardButton.classList.remove('photo-grid__owner');
+        this._element.querySelector('.photo-grid__counter').textContent = this._likeCounter;
+        this.toggleLike();
         this._setEventListeners();
         return this._element;
     }
@@ -39,10 +46,12 @@ export default class Card {
 
     _setEventListeners() {
         this._likeCardButton.addEventListener('click', () => {
-            this._toggleLike();
+            console.log(this, 'like card clicked');
+            this._handleLikeClick(this);
         });
         this._owner === this._userId && this._deleteCardButton.addEventListener('click', () => {
-            this._handleDeleteCardClick(this._item);
+            this._handleDeleteCardClick(this._item, () => this._deleteCard());
+            console.log('***', this);
             // this._deleteCard();
         });
         this._imageSelector.addEventListener('click', () => {
@@ -50,10 +59,31 @@ export default class Card {
         });
     }
 
+    // метод лайк/дизлайк
+
+    findLikeCard() {        
+        return this._likes.some((like) => like._id === this._userId);        
+    }
+
     // метод ставит лайк
 
-    _toggleLike() {
-        this._likeCardButton.classList.toggle('photo-grid__like_acltive');
+    toggleLike() {
+        this._likeCardButton.classList.toggle('photo-grid__like_acltive', this.findLikeCard());
+    }
+ 
+    // метод обновления лайков
+
+    updateLike(data) {
+        this._card = data;
+        this._likes = data.likes;
+        console.log(data); 
+    }
+
+    // метод обновления счетчика лайков
+
+    updateLikeCounter() {
+        this._likeCounter = this._likes.length;
+        this._element.querySelector('.photo-grid__counter').textContent = this._likeCounter; 
     }
 
     // метод удаления карточки

@@ -28,6 +28,8 @@
 @import url("../blocks/photo-grid/__like/_acltive/photo-grid__like_acltive.css");
 @import url("../blocks/photo-grid/__delete/photo-grid__delete.css");
 @import url("../blocks/photo-grid/__owner/photo-grid__owner.css");
+@import url("../blocks/photo-grid/__like-container/photo-grid__like-container.css");
+@import url("../blocks/photo-grid/__counter/photo-grid__counter.css");
 
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");

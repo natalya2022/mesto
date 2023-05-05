@@ -88,4 +88,12 @@ export default class Api {
       .then(res => this._checkRequest(res)); 
     }
    
-}
+  likeCard (cardId, like) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: like ? 'DELETE' : 'PUT',
+      headers: this._headers      
+      })
+    .then(res => this._checkRequest(res)); 
+  }
+}   
+
