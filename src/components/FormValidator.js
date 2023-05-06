@@ -33,8 +33,7 @@ export default class FormValidator {
     // метод скрывает сообщение об ошибке в одном поле
 
     _hideInputElementError = (inputElement) => {
-        const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
-        console.log(errorElement, inputElement);
+        const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);        
         inputElement.classList.remove(this._inputErrorClass);
         errorElement.classList.remove(this._errorClass);
         errorElement.textContent = '';

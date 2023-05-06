@@ -56,7 +56,7 @@ export default class Card {
         });
     }
 
-    // метод лайк/дизлайк
+    // метод определяет лайк/дизлайк
 
     findLikeCard() {        
         return this._likes.some((like) => like._id === this._userId);        
