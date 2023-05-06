@@ -34,8 +34,8 @@ export default class Card {
         this._imageSelector.setAttribute('alt', this._name);
         this._titleSelector.textContent = this._name;
         this._likeCardButton = this._element.querySelector('.photo-grid__like');
-        this._deleteCardButton = this._element.querySelector('.photo-grid__delete');        
-        this._owner !== this._userId && this._deleteCardButton.classList.remove('photo-grid__owner');
+        this._deleteCardButton = this._element.querySelector('.photo-grid__delete');                
+        this._owner !== this._userId && this._deleteCardButton.remove();
         this._element.querySelector('.photo-grid__counter').textContent = this._likeCounter;
         this.toggleLike();
         this._setEventListeners();
@@ -45,14 +45,11 @@ export default class Card {
     // метод навешивает слушатели
 
     _setEventListeners() {
-        this._likeCardButton.addEventListener('click', () => {
-            console.log(this, 'like card clicked');
+        this._likeCardButton.addEventListener('click', () => {            
             this._handleLikeClick(this);
         });
         this._owner === this._userId && this._deleteCardButton.addEventListener('click', () => {
-            this._handleDeleteCardClick(this._item, () => this._deleteCard());
-            console.log('***', this);
-            // this._deleteCard();
+            this._handleDeleteCardClick(this);            
         });
         this._imageSelector.addEventListener('click', () => {
             this._handleCardClick();
@@ -65,7 +62,7 @@ export default class Card {
         return this._likes.some((like) => like._id === this._userId);        
     }
 
-    // метод ставит лайк
+    // метод ставит или убирает лайк
 
     toggleLike() {
         this._likeCardButton.classList.toggle('photo-grid__like_acltive', this.findLikeCard());
@@ -75,8 +72,7 @@ export default class Card {
 
     updateLike(data) {
         this._card = data;
-        this._likes = data.likes;
-        console.log(data); 
+        this._likes = data.likes;         
     }
 
     // метод обновления счетчика лайков
@@ -88,7 +84,7 @@ export default class Card {
 
     // метод удаления карточки
 
-    _deleteCard() {
+    deleteCard() {
         this._element.remove();
         this._element = null;
     }    

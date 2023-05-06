@@ -15,7 +15,6 @@ import {
     inputAbout,
     buttonAddNewCard,
     buttonOpenPopupAvatar,
-    buttonDeleteCard
 } from '../data/constants.js';
 import {
     apiParams
@@ -105,7 +104,7 @@ const popupWithFormProfile = new PopupWithForm('.popup_type_profile', submitEdit
 popupWithFormProfile.setEventListeners();
 
 function submitEditProfileForm(item) {
-    api.editUserProfile(item);
+    //api.editUserProfile(item);
     profileUserInfo.setUserInfo({
         'name': item.name,
         'about': item.about
@@ -139,9 +138,9 @@ popupWithImageItem.setEventListeners();
 
 function createNewCard(item) {
     const cardItem = new Card(item, '#cardTemplate', () => {
-        popupWithImageItem.open(item)
-    }, api.getUserId(),
-        () => popupWithDeleteCard.confirmDel(item),
+            popupWithImageItem.open(item)
+        }, api.getUserId(),
+        handleDeleteClick,
         handleLikeClick
     )
     return cardItem.createCard();
@@ -162,11 +161,11 @@ function submitNewCardForm(item) {
             console.log(result);
             const cardItem = createNewCard(result);
             cardsSection.prependItem(cardItem);
+            popupWithFormPlace.close()
         })
         .catch((err) => {
             console.log(err); // выведем ошибку в консоль
-        })
-        .finally(popupWithFormPlace.close());
+        });
 }
 
 
@@ -193,25 +192,32 @@ api.getInitialCards()
 
 // создание экземпляра класса удаления карты
 
-const popupWithDeleteCard = new PopupWithDelete('.popup_type_delete', submitDeleteCardForm);
+const popupWithDeleteCard = new PopupWithDelete('.popup_type_delete');
 console.log(popupWithDeleteCard);
 popupWithDeleteCard.setEventListeners();
 
+// метод удаления карты
 
-function submitDeleteCardForm(item, cardId) {
-    console.log(item);
-    api.deleteCard(cardId).then((result) => {
-            console.log(result);
-        })
-        .catch((err) => {
-            console.log(err); // выведем ошибку в консоль
-        })
-        .finally(popupWithDeleteCard.close());
-}
+function handleDeleteClick(card) {
+    const submitDeleteCardForm = async () => {
+        try {
+            const result = await api.deleteCard(card.cardId);
+            //console.log(result);
+            card.deleteCard();
+            popupWithDeleteCard.close();
+        } catch (err) {
+            console.log(err);
+        } finally {
+            popupWithDeleteCard.close();
+        }
+    };
+    popupWithDeleteCard.setSubmitAction(submitDeleteCardForm);
+    popupWithDeleteCard.open();
+};
 
 // метод постановки лайка
 
-function handleLikeClick(card) {   
+function handleLikeClick(card) {
     api.likeCard(card.cardId, card.findLikeCard())
         .then((result) => {
             card.updateLike(result);
