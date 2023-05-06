@@ -11,9 +11,7 @@ export default class Card {
         this._handleDeleteCardClick = handleDeleteCardClick; 
         this._likeCounter = item.likes.length;
         this._likes = item.likes;
-        this._handleLikeClick = handleLikeClick;
-        //console.log(this, item.likes.length, item.likes); 
-        //console.log(this);      
+        this._handleLikeClick = handleLikeClick;              
     }
 
     // метод работает с темплейтом, создает заготовку карточки

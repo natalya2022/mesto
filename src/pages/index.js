@@ -76,8 +76,7 @@ popupWithFormAvatar.setEventListeners();
 // функция редактирования аватара
 
 function submitEditAvatarForm(item) {
-    popupWithFormAvatar.renderLoading(true);
-    console.log(popupWithFormAvatar.renderLoading);
+    popupWithFormAvatar.renderLoading(true);    
     api.editUserAvatar(item)
         .then(() => {
             profileUserInfo.setUserInfo(item);
@@ -188,8 +187,7 @@ popupWithFormPlace.setEventListeners();
 function submitNewCardForm(item) {
     popupWithFormPlace.renderLoading(true);
     api.addNewCard(item)
-        .then((result) => {
-            console.log(result);
+        .then((result) => {            
             const cardItem = createNewCard(result);
             cardsSection.prependItem(cardItem);
             popupWithFormPlace.close()
@@ -206,7 +204,6 @@ function submitNewCardForm(item) {
 // создание экземпляра класса PopupWithDelete удаления карты
 
 const popupWithDeleteCard = new PopupWithDelete('.popup_type_delete');
-console.log(popupWithDeleteCard);
 popupWithDeleteCard.setEventListeners();
 
 
@@ -215,8 +212,7 @@ popupWithDeleteCard.setEventListeners();
 function handleDeleteClick(card) {
     const submitDeleteCardForm = async () => {
         try {
-            const result = await api.deleteCard(card.cardId);
-            //console.log(result);
+            const result = await api.deleteCard(card.cardId);            
             card.deleteCard();
             popupWithDeleteCard.close();
         } catch (err) {
