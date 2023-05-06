@@ -34,8 +34,7 @@ let cardsSection;
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([resUser, resCards]) => {
-        profileUserInfo.setUserInfo(resUser);
-        api.setUserId(resUser._id);
+        profileUserInfo.setUserInfo(resUser);       
         cardsSection = new Section({
             data: resCards,
             renderer: (item) => {
@@ -45,7 +44,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         }, '.photo-grid__places');
         cardsSection.renderItems();
     })
-    .catch((error) => console.log(`Ошибка: ${error}`))
+    .catch((error) => console.log(`Ошибка: ${error}`));
 
 
 // установка слушателя на кнопку редактирования профиля
@@ -76,7 +75,7 @@ popupWithFormAvatar.setEventListeners();
 // функция редактирования аватара
 
 function submitEditAvatarForm(item) {
-    popupWithFormAvatar.renderLoading(true);    
+    popupWithFormAvatar.renderLoading(true);
     api.editUserAvatar(item)
         .then(() => {
             profileUserInfo.setUserInfo(item);
@@ -86,7 +85,7 @@ function submitEditAvatarForm(item) {
             console.log(err);
         })
         .finally(() => {
-            popupWithFormAvatar.renderLoading(false); 
+            popupWithFormAvatar.renderLoading(false);
         });
 }
 
@@ -137,7 +136,7 @@ function submitEditProfileForm(item) {
             console.log(err);
         })
         .finally(() => {
-            popupWithFormProfile.renderLoading(false); 
+            popupWithFormProfile.renderLoading(false);
         });
 }
 
@@ -168,7 +167,7 @@ popupWithImageItem.setEventListeners();
 function createNewCard(item) {
     const cardItem = new Card(item, '#cardTemplate', () => {
             popupWithImageItem.open(item)
-        }, api.getUserId(),
+        }, profileUserInfo.getUserInfo()._id,
         handleDeleteClick,
         handleLikeClick
     )
@@ -187,7 +186,7 @@ popupWithFormPlace.setEventListeners();
 function submitNewCardForm(item) {
     popupWithFormPlace.renderLoading(true);
     api.addNewCard(item)
-        .then((result) => {            
+        .then((result) => {
             const cardItem = createNewCard(result);
             cardsSection.prependItem(cardItem);
             popupWithFormPlace.close()
@@ -196,7 +195,7 @@ function submitNewCardForm(item) {
             console.log(err);
         })
         .finally(() => {
-            popupWithFormPlace.renderLoading(false); 
+            popupWithFormPlace.renderLoading(false);
         });
 }
 
@@ -211,14 +210,13 @@ popupWithDeleteCard.setEventListeners();
 
 function handleDeleteClick(card) {
     const submitDeleteCardForm = async () => {
-        try {
-            const result = await api.deleteCard(card.cardId);            
-            card.deleteCard();
-            popupWithDeleteCard.close();
+        try {             
+            await api.deleteCard(card.cardId);
+            card.deleteCard();            
         } catch (err) {
             console.log(err);
         } finally {
-            popupWithDeleteCard.close();
+            popupWithDeleteCard.close();            
         }
     };
     popupWithDeleteCard.setSubmitAction(submitDeleteCardForm);

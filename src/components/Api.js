@@ -1,8 +1,7 @@
 export default class Api {
   constructor(apiParams) {    
     this._baseUrl = apiParams.baseUrl;
-    this._headers = apiParams.headers;
-    this._userId = 0;
+    this._headers = apiParams.headers;    
   }
 
   _checkRequest(res) {
@@ -51,16 +50,6 @@ export default class Api {
   }
 
 
-  setUserId(userId) {
-    this._userId = userId;    
-  }
-
-
-  getUserId() {
-    return this._userId;
-  }
-
-
   editUserProfile({name, about}) {    
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
@@ -85,7 +74,7 @@ export default class Api {
       .then(res => this._checkRequest(res)); 
     }
    
-    
+
   likeCard (cardId, like) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: like ? 'DELETE' : 'PUT',
