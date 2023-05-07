@@ -167,7 +167,7 @@ popupWithImageItem.setEventListeners();
 function createNewCard(item) {
     const cardItem = new Card(item, '#cardTemplate', () => {
             popupWithImageItem.open(item)
-        }, profileUserInfo.getUserInfo()._id,
+        }, profileUserInfo.getUserId(),
         handleDeleteClick,
         handleLikeClick
     )
@@ -212,12 +212,11 @@ function handleDeleteClick(card) {
     const submitDeleteCardForm = async () => {
         try {             
             await api.deleteCard(card.cardId);
-            card.deleteCard();            
+            card.deleteCard();
+            popupWithDeleteCard.close();            
         } catch (err) {
             console.log(err);
-        } finally {
-            popupWithDeleteCard.close();            
-        }
+        }; 
     };
     popupWithDeleteCard.setSubmitAction(submitDeleteCardForm);
     popupWithDeleteCard.open();

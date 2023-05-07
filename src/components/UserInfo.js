@@ -9,8 +9,7 @@ export default class UserInfo {
         return { 
             name: this._profileName.textContent, 
             about: this._profileAbout.textContent,
-            avatar: this._profileAvatar.src,
-            _id: this._id  
+            avatar: this._profileAvatar.src              
         };
     }
     
@@ -27,5 +26,8 @@ export default class UserInfo {
         if  (_id) {
             this._id = _id;
         }       
-    }    
+    } 
+    
+    getUserId = () => this._id;
+    
 }
